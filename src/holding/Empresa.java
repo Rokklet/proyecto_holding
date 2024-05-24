@@ -18,7 +18,6 @@ public class Empresa {
     public Empresa(int codigo, String nombre) {
         this.codigo = codigo;
         this.nombre = nombre;
-        this.facturacion = facturacion;
         this.fechaDeEntrada = LocalDate.now();
     }
 
@@ -53,5 +52,23 @@ public class Empresa {
     public void setCantVendedores(int cantVendedores) {
         this.cantVendedores = cantVendedores;
     }
+
+    public ArrayList<Area> getAreas() {
+        return areas;
+    }
+
+    public void setAreas(ArrayList<Area> areas) {
+        this.areas = areas;
+    }
+
+    public ArrayList<Pais> getPaises() {
+        return paises;
+    }
+
+    public void setPaises(ArrayList<Pais> paises) {
+        this.paises = paises;
+    }
+    
+    
     
 }
