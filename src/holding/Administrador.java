@@ -41,6 +41,20 @@ public class Administrador extends Usuario implements Serializable {
                             sistema.getUsuario().add(new Vendedor(usVen, conVen));
                         }  
                     }
+                case 2:
+                    int codEmp = EntradaSalida.leerInt("Ingrese un codigo unico:\n");
+                    if(codEmp == 0){
+                        EntradaSalida.mostrarString("ERROR: Debe tener un codigo.\n");
+                    }else{
+                        if(sistema.coincideCodEmp(codEmp)){
+                            EntradaSalida.mostrarString("Este codigo ya esta existe.\n");
+                        }else {
+                            String nomEmp = EntradaSalida.leerString("¿Cual es el nombre de la empresa?\n");
+                            if(nomEmp.equals("")){
+                                throw new NullPointerException("ERROR: Debe tener un nombre.\n");
+                            }
+                            sistema.getEmpresa().add(new Empresa(codEmp, nomEmp));
+                        }
             }
         }while(i!=4 || i!=5);
         
