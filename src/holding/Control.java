@@ -21,7 +21,7 @@ public class Control {
             if (usuario.equals("")) {
                 throw new NullPointerException("ERROR: El usuario no puede ser nulo.");
             }
-            String contraseña = EntradaSalida.leerContraseña("Ingrese su password:");
+            String contraseña = EntradaSalida.leerString("Ingrese su password:");
             if (contraseña.equals("")) {
                 throw new NullPointerException("ERROR: La password no puede ser nula.");
             }
@@ -37,7 +37,7 @@ public class Control {
 
         while (seguir) {
             String usuario = EntradaSalida.leerString("Ingrese el usuario:");
-            String contraseña = EntradaSalida.leerContraseña("Ingrese la password:");
+            String contraseña = EntradaSalida.leerString("Ingrese la password:");
 
             Usuario u = sistema.buscarUsuario(usuario + ":" + contraseña);
 
