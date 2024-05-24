@@ -30,9 +30,10 @@ public class EntradaSalida {
         System.out.println(s);
     }
 
-    public static String leerContraseña(String texto) {
+    public static int leerInt(String texto) {
         System.out.println(texto);
-        String password = leerString.nextLine();
-        return password;
+        int i = leerInt.nextInt();
+        return i;
     }
+    
 }

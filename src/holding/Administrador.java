@@ -10,14 +10,42 @@ public class Administrador extends Usuario implements Serializable {
     public Administrador(String u, String p) {
         setId(u);
         setContraseña(p);
-        System.out.println("Cargados!!!");
     }
     
     @Override
     public boolean proceder(Sistema sistema){
+        int i = 0;
+        boolean seguir = true;
         System.out.println("Hola Administrador " + getId());
         
-        return true;
+        do{
+            i=EntradaSalida.leerInt("Elija alguna de las siguientes opciones:\n"
+                    + "1_Para ingresar un nuevo vendedor.\n"
+                    + "2_Para ingresar un nuevo ascesor.\n"
+                    + "3_Para ingresar una nueva empresa.\n"
+                    + "4_Para salir del menu.\n"
+                    + "5_Para salir del programa.\n");
+            switch (i){
+                case 1:
+                    String usVen = EntradaSalida.leerString("¿Cual sera el usuario del vendedor?\n");
+                    if(usVen.equals("")){
+                        EntradaSalida.mostrarString("ERROR: Debe tener un usuario.\n");
+                    }else{
+                        if(sistema.coincideUsuario(usVen)){
+                            EntradaSalida.leerString("Ese usuario ya esta existe.");
+                        }else {
+                            String conVen = EntradaSalida.leerString("Ingrese una contraseña:");
+                            if(conVen.equals("")){
+                                throw new NullPointerException("ERROR: La password no puede ser nula.");
+                            }
+                            sistema.getUsuario().add(new Vendedor(usVen, conVen));
+                        }  
+                    }
+            }
+        }while(i!=4 || i!=5);
+        
+        
+        return seguir;
     }
     
     @Override

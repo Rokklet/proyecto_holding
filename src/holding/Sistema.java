@@ -30,13 +30,27 @@ public class Sistema implements Serializable {
     
     public void serializar(String a) throws IOException {
         FileOutputStream f = new FileOutputStream(a);
-        System.out.println("LLegue");
         ObjectOutputStream o = new ObjectOutputStream(f);
-        System.out.println("LLegue2");
         o.writeObject(this);
-        System.out.println("LLegue3");
         o.close();
         f.close();
+    }
+    
+    public boolean coincideUsuario(String usuario){
+        int i = 0;
+        boolean coincide = false;
+        Usuario u = null;
+        
+        while (i < usuarios.size() || coincide) {
+            u = usuarios.get(i);
+            if (usuario.equals(u.getId())) {
+                coincide = true;
+            } else {
+                i++;
+            }
+        }
+        
+        return coincide;
     }
     
     public Usuario buscarUsuario(String datos) {
