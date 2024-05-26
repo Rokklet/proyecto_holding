@@ -73,7 +73,7 @@ public class Sistema implements Serializable {
         }
     }
     
-    public ArrayList<Empresa> getEmpresa() {
+    public ArrayList<Empresa> getEmpresas() {
         return empresas;
     }
 
@@ -88,4 +88,19 @@ public class Sistema implements Serializable {
     public void setUsuario(ArrayList<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
+    
+    public boolean coincideCodEmp (int cod){
+        Empresa empresa;
+        for(int i = 0; i < empresas.size() ;i++){
+            empresa = empresas.get(i);
+            if(empresa.getCodigo()== cod){
+                System.out.println("Se ha encontrado una empresa.");
+                return true;
+            }
+        }
+        
+        System.out.println("No se ha encontrado una empresa con ese codigo.");
+        return false;
+    }
+    
 }
