@@ -9,6 +9,8 @@ public class Vendedor extends Usuario implements Serializable {
     
     LocalDate fechaEntrada;
     int cod;
+    ArrayList<Empresa> empresas;
+    boolean lider;
     
     public Vendedor(String u, String p) {
         setId(u);
@@ -42,5 +44,7 @@ public class Vendedor extends Usuario implements Serializable {
         this.cod = cod;
     }
     
-    
+    public ArrayList<Empresa> getEmpresas(){
+        return empresas;
+    }
 }
