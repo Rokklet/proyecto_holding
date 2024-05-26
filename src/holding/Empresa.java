@@ -14,6 +14,7 @@ public class Empresa {
     private LocalDate fechaDeEntrada;
     private ArrayList<Area> areas;
     private ArrayList<Pais> paises;
+    private String sedeCentral;
 
     public Empresa(int codigo, String nombre) {
         this.codigo = codigo;
@@ -69,6 +70,27 @@ public class Empresa {
         this.paises = paises;
     }
     
+    public void inscribirVendedor(Vendedor v){
+        v.getEmpresas().add(this);
+        cantVendedores++;
+    }
     
-    
+    public void mostrar(){
+        System.out.println("Empresa: " + nombre);
+        System.out.println("Codigo: " + codigo);
+        System.out.println("Cantidad de Vendedores: " + cantVendedores);
+        System.out.println("Paises: " + paises.size());
+        /* Muestra de paises (no habilitar hasta la carga de algun pais)
+        for(int i = 0; i<paises.size(); i++){
+            System.out.println(paises.get(i));
+        }
+        */
+        System.out.println("Areas: " + areas.size());
+        /* Muestra de areas (no habilitar hasta la carga de algun area)
+        for(int i = 0; i<areas.size(); i++){
+            System.out.println(areas.get(i));
+        }
+        */
+        
+    }
 }
