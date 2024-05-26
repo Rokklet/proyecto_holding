@@ -25,7 +25,7 @@ public class Control {
             if (contraseña.equals("")) {
                 throw new NullPointerException("ERROR: La password no puede ser nula.");
             }
-            sistema.getUsuario().add(new Administrador(usuario, contraseña));
+            sistema.getUsuarios().add(new Administrador(usuario, contraseña));
             try {
                 sistema.serializar("holding.txt");
                 EntradaSalida.mostrarString("El arranque ha sido exitoso. Ahora se debe reiniciar el sistema...");

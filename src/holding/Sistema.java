@@ -81,7 +81,7 @@ public class Sistema implements Serializable {
         this.empresas = empresas;
     }
 
-    public ArrayList<Usuario> getUsuario() {
+    public ArrayList<Usuario> getUsuarios() {
         return usuarios;
     }
 
