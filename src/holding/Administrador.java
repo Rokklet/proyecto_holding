@@ -38,9 +38,10 @@ public class Administrador extends Usuario implements Serializable {
                             if(conVen.equals("")){
                                 throw new NullPointerException("ERROR: La password no puede ser nula.");
                             }
-                            sistema.getUsuario().add(new Vendedor(usVen, conVen));
+                            sistema.getUsuarios().add(new Vendedor(usVen, conVen));
                         }  
                     }
+                    break;
                 case 2:
                     int codEmp = EntradaSalida.leerInt("Ingrese un codigo unico:\n");
                     if(codEmp == 0){
@@ -53,14 +54,38 @@ public class Administrador extends Usuario implements Serializable {
                             if(nomEmp.equals("")){
                                 throw new NullPointerException("ERROR: Debe tener un nombre.\n");
                             }
-                            sistema.getEmpresa().add(new Empresa(codEmp, nomEmp));
+                            sistema.getEmpresas().add(new Empresa(codEmp, nomEmp));
                         }
+                    }
+                    break;
+                case 3: //DAR DE ALTA UNA EMPRESA
+                    String nombre = EntradaSalida.leerString("ALTA EMPRESAS \n Nombre de la Empresa:");
+                    if(nombre.equals("")){
+                        System.out.println("Nombre no valido");
+                    }else{
+                        ArrayList<Empresa> empresas = sistema.getEmpresas();
+                        ArrayList<Integer> codigos = new ArrayList<Integer>();
+                        for(i = 0; i<empresas.size();i++){
+                            codigos.add(empresas.get(i).getCodigo());
+                        }
+                        int codigo = EntradaSalida.leerInt("Ingrese el codigo de la Empresa: ");
+                        
+                        if(codigos.contains(codigo)){
+                            EntradaSalida.mostrarString("El codigo ya existe");
+                        }else{
+                            Empresa empresa = new Empresa(codigo,nombre);
+                            sistema.getEmpresas().add(empresa);
+                            EntradaSalida.mostrarString("Se dado de alta una nueva Empresa");
+                        }
+                        
+                    }
             }
         }while(i!=4 || i!=5);
         
         
         return seguir;
     }
+        
     
     @Override
     public void mostrar(){
