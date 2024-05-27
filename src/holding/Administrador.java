@@ -86,7 +86,21 @@ public class Administrador extends Usuario implements Serializable {
                         if(codigos.contains(codigo)){
                             EntradaSalida.mostrarString("El codigo ya existe");
                         }else{
-                            Empresa empresa = new Empresa(codigo,nombre);
+                            ArrayList<Pais> listPaises = sistema.getPaises();
+                            if(listPaises.isEmpty()){
+                                EntradaSalida.mostrarString("Aun no hay paises disponibles.\n"
+                                        + "Cargue el pais cede");
+                                String nomPaisSC = EntradaSalida.leerString("Ingrese el nombre del pais cede.\n");
+                            }else{
+                                Pais pais;
+                                for(i = 0; i < listPaises.size(); i++){
+                                    pais = listPaises.get(i);
+                                    
+                                }
+                            }
+                            
+                            
+                            Empresa empresa = new Empresa(codigo, nombre);
                             sistema.getEmpresas().add(empresa);
                             EntradaSalida.mostrarString("Se dado de alta una nueva Empresa");
                         }

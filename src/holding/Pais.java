@@ -13,4 +13,7 @@ public class Pais {
         this.capital = capital;
     }
     
+    public void mostrarPais(){
+        EntradaSalida.mostrarString("" + nombre );
+}
 }

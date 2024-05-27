@@ -14,12 +14,15 @@ public class Empresa {
     private LocalDate fechaDeEntrada;
     private ArrayList<Area> areas;
     private ArrayList<Pais> paises;
-    private String sedeCentral;
+    private Pais sedeCentral;
 
-    public Empresa(int codigo, String nombre) {
+    public Empresa(int codigo, String nombre, ArrayList<Area> areas, ArrayList<Pais> paises, Pais sedeCentral) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.fechaDeEntrada = LocalDate.now();
+        this.areas = areas;
+        this.paises = paises;
+        this.sedeCentral = sedeCentral;
     }
 
     public int getCodigo() {
@@ -70,11 +73,12 @@ public class Empresa {
         this.paises = paises;
     }
     
+    /*0
     public void inscribirVendedor(Vendedor v){
         v.getEmpresas().add(this);
         cantVendedores++;
     }
-    
+    */
     public void mostrar(){
         System.out.println("Empresa: " + nombre);
         System.out.println("Codigo: " + codigo);

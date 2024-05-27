@@ -13,6 +13,9 @@ public class Sistema implements Serializable {
     
     private ArrayList<Empresa> empresas;
     private ArrayList<Usuario> usuarios;
+    private ArrayList<Pais> paises;
+    private ArrayList<Area> areas;
+    
     
     public Sistema(){
         this.empresas = new ArrayList<Empresa>();
@@ -77,7 +80,7 @@ public class Sistema implements Serializable {
         return empresas;
     }
 
-    public void setCursos(ArrayList<Empresa> empresas) {
+    public void setEmpresas(ArrayList<Empresa> empresas) {
         this.empresas = empresas;
     }
 
@@ -102,5 +105,23 @@ public class Sistema implements Serializable {
         System.out.println("No se ha encontrado una empresa con ese codigo.");
         return false;
     }
+
+    public ArrayList<Pais> getPaises() {
+        return paises;
+    }
+
+    public void setPaises(ArrayList<Pais> paises) {
+        this.paises = paises;
+    }
+
+    public ArrayList<Area> getAreas() {
+        return areas;
+    }
+
+    public void setAreas(ArrayList<Area> areas) {
+        this.areas = areas;
+    }
+    
+    
     
 }
