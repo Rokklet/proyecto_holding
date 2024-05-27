@@ -27,37 +27,50 @@ public class Administrador extends Usuario implements Serializable {
                     + "5_Para salir del programa.\n");
             switch (i){
                 case 1:
-                    String usVen = EntradaSalida.leerString("¿Cual sera el usuario del vendedor?\n");
-                    if(usVen.equals("")){
-                        EntradaSalida.mostrarString("ERROR: Debe tener un usuario.\n");
+                    ArrayList<Empresa> listaEmpresas = sistema.getEmpresas();
+                    if(listaEmpresas.isEmpty()){
+                        EntradaSalida.mostrarString("Primero deben haber empresas asociadas al holding");
                     }else{
-                        if(sistema.coincideUsuario(usVen)){
-                            EntradaSalida.leerString("Ese usuario ya esta existe.");
-                        }else {
-                            String conVen = EntradaSalida.leerString("Ingrese una contraseña:");
-                            if(conVen.equals("")){
-                                throw new NullPointerException("ERROR: La password no puede ser nula.");
-                            }
-                            sistema.getUsuarios().add(new Vendedor(usVen, conVen));
-                        }  
-                    }
-                    break;
-                case 2:
-                    int codEmp = EntradaSalida.leerInt("Ingrese un codigo unico:\n");
-                    if(codEmp == 0){
-                        EntradaSalida.mostrarString("ERROR: Debe tener un codigo.\n");
-                    }else{
-                        if(sistema.coincideCodEmp(codEmp)){
-                            EntradaSalida.mostrarString("Este codigo ya esta existe.\n");
-                        }else {
-                            String nomEmp = EntradaSalida.leerString("¿Cual es el nombre de la empresa?\n");
-                            if(nomEmp.equals("")){
-                                throw new NullPointerException("ERROR: Debe tener un nombre.\n");
-                            }
-                            sistema.getEmpresas().add(new Empresa(codEmp, nomEmp));
+                        String usVen = EntradaSalida.leerString("¿Cual sera el usuario del vendedor?\n");
+                        if(usVen.equals("")){
+                            EntradaSalida.mostrarString("ERROR: Debe tener un usuario.\n");
+                        }else{
+                            if(sistema.coincideUsuario(usVen)){
+                                EntradaSalida.leerString("Ese usuario ya esta existe.");
+                            }else {
+                                String conVen = EntradaSalida.leerString("Ingrese una contraseña:");
+                                if(conVen.equals("")){
+                                    throw new NullPointerException("ERROR: La password no puede ser nula.");
+                                }else{
+                                    sistema.getUsuarios().add(new Vendedor(usVen, conVen));
+                                }
+
+                            }  
                         }
                     }
                     break;
+                case 2: //DAR DE ALTA ASESOR
+                    ArrayList<Empresa> listadoEmpresas = sistema.getEmpresas();
+                    if(listadoEmpresas.isEmpty()){
+                        EntradaSalida.mostrarString("Primero deben haber empresas asociadas al holding");
+                    }else{
+                        String usAses= EntradaSalida.leerString("ALTA ASESOR \n Usuario del asesor:");
+                        if(usAses.equals("")){
+                            EntradaSalida.mostrarString("Usuario no valido");
+                        }else{
+                            if(sistema.coincideUsuario(usAses)){
+                                EntradaSalida.mostrarString("Nombre de usuario ya existente");
+                            }else{
+                                String pasAses = EntradaSalida.leerString("Ingrese una contraseña: ");
+                                if(pasAses.equals("")){
+                                    EntradaSalida.mostrarString("ERROR: La password no puede ser nula.");
+                                }else{
+                                    sistema.getUsuarios().add(new Asesor(usAses, pasAses));
+                                }
+                            }
+                        }
+                    }
+                    
                 case 3: //DAR DE ALTA UNA EMPRESA
                     String nombre = EntradaSalida.leerString("ALTA EMPRESAS \n Nombre de la Empresa:");
                     if(nombre.equals("")){
