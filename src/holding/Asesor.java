@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class Asesor extends Usuario implements Serializable {
     
     private int codigo;
-    ArrayList<Empresa> empresas;
+    private ArrayList<Empresa> empresas;
     
     public Asesor(String us, String pas){
         setId(us);
