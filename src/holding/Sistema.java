@@ -122,6 +122,25 @@ public class Sistema implements Serializable {
         this.areas = areas;
     }
     
-    
+        public Pais buscarPais(String datos) {
+        int i = 0;
+        boolean encontrado = false;
+        Pais p = null;
+
+        while (i < paises.size() && !encontrado) {
+            p = paises.get(i);
+            if (datos.equals(p.getNombre())) {
+                encontrado = true;
+            } else {
+                i++;
+            }
+        }
+        if (!encontrado) {
+            return null;
+        } else {
+            return p;
+        }
+    }
+
     
 }
