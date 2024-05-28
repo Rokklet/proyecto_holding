@@ -16,13 +16,11 @@ public class Empresa {
     private ArrayList<Pais> paises;
     private Pais sedeCentral;
 
-    public Empresa(int codigo, String nombre, ArrayList<Area> areas, ArrayList<Pais> paises, Pais sedeCentral) {
+    public Empresa(int codigo, String nombre, Pais sedeCentral) {
         this.codigo = codigo;
         this.nombre = nombre;
-        this.fechaDeEntrada = LocalDate.now();
-        this.areas = areas;
-        this.paises = paises;
         this.sedeCentral = sedeCentral;
+        this.fechaDeEntrada = LocalDate.now();
     }
 
     public int getCodigo() {
@@ -82,14 +80,14 @@ public class Empresa {
     public void mostrar(){
         System.out.println("Empresa: " + nombre);
         System.out.println("Codigo: " + codigo);
-        System.out.println("Cantidad de Vendedores: " + cantVendedores);
-        System.out.println("Paises: " + paises.size());
+        //System.out.println("Cantidad de Vendedores: " + cantVendedores);
+        //System.out.println("Paises: " + paises.size());
         /* Muestra de paises (no habilitar hasta la carga de algun pais)
         for(int i = 0; i<paises.size(); i++){
             System.out.println(paises.get(i));
         }
         */
-        System.out.println("Areas: " + areas.size());
+        //System.out.println("Areas: " + areas.size());
         /* Muestra de areas (no habilitar hasta la carga de algun area)
         for(int i = 0; i<areas.size(); i++){
             System.out.println(areas.get(i));
