@@ -89,18 +89,38 @@ public class Administrador extends Usuario implements Serializable {
                             ArrayList<Pais> listPaises = sistema.getPaises();
                             if(listPaises.isEmpty()){
                                 EntradaSalida.mostrarString("Aun no hay paises disponibles.\n"
-                                        + "Cargue el pais cede");
-                                String nomPaisSC = EntradaSalida.leerString("Ingrese el nombre del pais cede.\n");
+                                        + "Cargue el pais cede:\n");
+                                String nomPaisSC = EntradaSalida.leerString("Ingrese el nombre del pais cede:\n");
+                                String capPaisSC = EntradaSalida.leerString("Ingrese la capital del pais:\n");
+                                int pbiPaisSC = EntradaSalida.leerInt("Ingrese el pbi del pais:\n");
+                                int cantHabitantesSC = EntradaSalida.leerInt("Ingrese la cantidad de habitantes del pais:\n");
+                                Pais paisCede = new Pais(nomPaisSC, capPaisSC, pbiPaisSC, cantHabitantesSC);
+                                //Ingresar este pais a la ArrayList
                             }else{
                                 Pais pais;
                                 for(i = 0; i < listPaises.size(); i++){
                                     pais = listPaises.get(i);
-                                    
+                                    //Falta llamar mostarPais
                                 }
+                                boolean flag = false;
+                                do{
+                                    String nomPaisSC = EntradaSalida.leerString("Ingrese el nombre del pais cede o si no esta ingrese [0]:\n");
+                                    if(nomPaisSC.equals("")){
+                                        EntradaSalida.mostrarString("Hay que crear al pais cede:\n");
+                                        nomPaisSC = EntradaSalida.leerString("Ingrese el nombre del pais cede:\n");
+                                        String capPaisSC = EntradaSalida.leerString("Ingrese la capital del pais:\n");
+                                        int pbiPaisSC = EntradaSalida.leerInt("Ingrese el pbi del pais:\n");
+                                        int cantHabitantesSC = EntradaSalida.leerInt("Ingrese la cantidad de habitantes del pais:\n");
+                                        Pais paisCede = new Pais(nomPaisSC, capPaisSC, pbiPaisSC, cantHabitantesSC);
+                                        //Ingresar este pais a la ArrayList
+                                    }else{
+                                        Pais paisCede = sistema.buscarPais(nomPaisSC);
+                                    }
+                                }while(flag);
                             }
                             
                             
-                            Empresa empresa = new Empresa(codigo, nombre);
+                            Empresa empresa = new Empresa(codigo, nombre, , , paisCede);
                             sistema.getEmpresas().add(empresa);
                             EntradaSalida.mostrarString("Se dado de alta una nueva Empresa");
                         }
