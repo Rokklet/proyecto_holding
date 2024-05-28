@@ -100,10 +100,11 @@ public class Administrador extends Usuario implements Serializable {
                                 Pais pais;
                                 for(i = 0; i < listPaises.size(); i++){
                                     pais = listPaises.get(i);
-                                    //Falta llamar mostarPais
+                                    pais.mostrarPais();
                                 }
-                                boolean flag = false;
+                                boolean flag;
                                 do{
+                                    flag = true;
                                     String nomPaisSC = EntradaSalida.leerString("Ingrese el nombre del pais cede o si no esta ingrese [0]:\n");
                                     if(nomPaisSC.equals("")){
                                         EntradaSalida.mostrarString("Hay que crear al pais cede:\n");
@@ -115,9 +116,15 @@ public class Administrador extends Usuario implements Serializable {
                                         //Ingresar este pais a la ArrayList
                                     }else{
                                         Pais paisCede = sistema.buscarPais(nomPaisSC);
+                                        if(paisCede == null){
+                                            flag = false;
+                                            EntradaSalida.mostrarString("Ese nombre no esta en la lista.\n");
+                                        }
                                     }
-                                }while(flag);
+                                }while(!flag);
                             }
+                            
+                            
                             
                             
                             Empresa empresa = new Empresa(codigo, nombre, , , paisCede);
