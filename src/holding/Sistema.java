@@ -14,12 +14,12 @@ public class Sistema implements Serializable {
     private ArrayList<Empresa> empresas;
     private ArrayList<Usuario> usuarios;
     private ArrayList<Pais> paises;
-    private ArrayList<Area> areas;
     
     
     public Sistema(){
         this.empresas = new ArrayList<Empresa>();
         this.usuarios = new ArrayList<Usuario>();
+        this.paises = new ArrayList<Pais>();
     }
     
     public Sistema deSerializar(String a) throws IOException, ClassNotFoundException {
@@ -113,16 +113,8 @@ public class Sistema implements Serializable {
     public void setPaises(ArrayList<Pais> paises) {
         this.paises = paises;
     }
-
-    public ArrayList<Area> getAreas() {
-        return areas;
-    }
-
-    public void setAreas(ArrayList<Area> areas) {
-        this.areas = areas;
-    }
     
-        public Pais buscarPais(String datos) {
+    public Pais buscarPais(String datos) {
         int i = 0;
         boolean encontrado = false;
         Pais p = null;
