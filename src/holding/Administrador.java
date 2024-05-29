@@ -4,6 +4,8 @@ package holding;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Administrador extends Usuario implements Serializable {
     
@@ -107,7 +109,7 @@ public class Administrador extends Usuario implements Serializable {
                                 do{
                                     flag = true;
                                     String nomPaisSC = EntradaSalida.leerString("Ingrese el nombre del pais cede o si no esta ingrese [0]:\n");
-                                    if(nomPaisSC.equals("")){
+                                    if(nomPaisSC.equals("0")){
                                         EntradaSalida.mostrarString("Hay que crear al pais cede:\n");
                                         nomPaisSC = EntradaSalida.leerString("Ingrese el nombre del pais cede:\n");
                                         String capPaisSC = EntradaSalida.leerString("Ingrese la capital del pais:\n");
@@ -125,11 +127,50 @@ public class Administrador extends Usuario implements Serializable {
                                 }while(!flag);
                             }
                             Empresa empresa = new Empresa(codigo, nombre, paisCede);
+                            boolean salida = true;
+                            do{
+                                Pais pais;
+                                for(i = 0; i < listPaises.size(); i++){
+                                    pais = listPaises.get(i);
+                                    pais.mostrarPais();
+                                }
+                                boolean flag;
+                                do{
+                                    flag = true;
+                                    String nomPais = EntradaSalida.leerString("Ingrese el nombre del pais o si no esta ingrese [0]:\n");
+                                    if(nomPais.equals("0")){
+                                        EntradaSalida.mostrarString("Hay que crear al pais:\n");
+                                        nomPais = EntradaSalida.leerString("Ingrese el nombre del pais:\n");
+                                        String capPais = EntradaSalida.leerString("Ingrese la capital del:\n");
+                                        int pbiPais = EntradaSalida.leerInt("Ingrese el pbi del:\n");
+                                        int cantHabitantes = EntradaSalida.leerInt("Ingrese la cantidad de habitantes del pais:\n");
+                                        pais = new Pais(nomPais, capPais, pbiPais, cantHabitantes);
+                                        sistema.getPaises().add(pais);
+                                    }else{
+                                        pais = sistema.buscarPais(nomPais);
+                                        if(pais == null){
+                                        flag = false;
+                                            EntradaSalida.mostrarString("Ese nombre no esta en la lista.\n");
+                                        }
+                                    }
+                                }while(!flag);
+                                empresa.getPaises().add(pais);
+                                if(EntradaSalida.leerInt("Para dejar de cargar paises ingrese [0]") == 0){
+                                    salida = false;
+                                }
+                            }while(salida);
+                            
+                            
                             
                             empresa.mostrar();
                             
                             
                             sistema.getEmpresas().add(empresa);
+                            try {
+                                sistema.serializar("holding.txt");
+                            } catch (IOException ex) {
+                                Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                             EntradaSalida.mostrarString("Se dado de alta una nueva Empresa");
                         }
                         
