@@ -7,11 +7,27 @@ import java.io.Serializable;
 public class Asesor extends Usuario implements Serializable {
     
     private int codigo;
+    private String nombre;
+    private String direccion;
+    private ArrayList<Integer> fechaCom;
     private ArrayList<Empresa> empresas;
     
-    public Asesor(String us, String pas){
+    public Asesor(String us, String pas /*, int cod*/){
+        //setCodigo(cod);
         setId(us);
         setContraseña(pas);
+    }
+    
+    private void setCodigo(int cod){
+        codigo = cod;
+    }
+    
+    public int getCodigo(){
+        return codigo;
+    }
+    
+    public ArrayList<Empresa> getEmpresas(){
+        return empresas;
     }
     
     @Override
