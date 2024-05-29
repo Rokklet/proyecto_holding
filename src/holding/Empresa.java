@@ -21,6 +21,8 @@ public class Empresa {
         this.nombre = nombre;
         this.sedeCentral = sedeCentral;
         this.fechaDeEntrada = LocalDate.now();
+        paises = null;
+        areas = null;
     }
 
     public int getCodigo() {
