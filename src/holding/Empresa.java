@@ -21,6 +21,8 @@ public class Empresa {
         this.nombre = nombre;
         this.sedeCentral = sedeCentral;
         this.fechaDeEntrada = LocalDate.now();
+        this.paises = new ArrayList<Pais>();
+        this.areas = new ArrayList<Area>();
     }
 
     public int getCodigo() {
@@ -78,8 +80,10 @@ public class Empresa {
     }
     */
     public void mostrar(){
-        System.out.println("Empresa: " + nombre);
-        System.out.println("Codigo: " + codigo);
+        EntradaSalida.mostrarString("Empresa: " + nombre);
+        EntradaSalida.mostrarString("Codigo: " + codigo);
+        sedeCentral.mostrarPais();
+        
         //System.out.println("Cantidad de Vendedores: " + cantVendedores);
         //System.out.println("Paises: " + paises.size());
         /* Muestra de paises (no habilitar hasta la carga de algun pais)
