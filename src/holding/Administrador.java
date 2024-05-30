@@ -161,17 +161,14 @@ public class Administrador extends Usuario implements Serializable {
                             }while(salida);
                             
                             
-                            
-                            empresa.mostrar();
-                            
-                            
                             sistema.getEmpresas().add(empresa);
                             try {
                                 sistema.serializar("holding.txt");
                             } catch (IOException ex) {
                                 Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
                             }
-                            EntradaSalida.mostrarString("Se dado de alta una nueva Empresa");
+                            EntradaSalida.mostrarString("Se dado de alta una nueva Empresa:");
+                            empresa.mostrar();
                         }
                         
                     }
