@@ -73,30 +73,47 @@ public class Empresa {
         this.paises = paises;
     }
     
-    /*0
-    public void inscribirVendedor(Vendedor v){
-        v.getEmpresas().add(this);
-        cantVendedores++;
+    public boolean coincideArea(Area area){
+        Area aAux;
+        for(int i = 0; i < areas.size() ;i++){
+            aAux = areas.get(i);
+            if(area.getNombre().equals(aAux.getNombre())){
+                return false;
+            }
+        }
+        return true;
     }
-    */
+    
+    public boolean coincidePais(Pais pais){
+        Pais pAux;
+        for(int i = 0; i < paises.size() ;i++){
+            pAux = paises.get(i);
+            if(pais.getNombre().equals(pAux.getNombre())){
+                return false;
+            }
+        }
+        return true;
+    }
+    
     public void mostrar(){
         EntradaSalida.mostrarString("Empresa: " + nombre);
         EntradaSalida.mostrarString("Codigo: " + codigo);
-        sedeCentral.mostrarPais();
-        
-        //System.out.println("Cantidad de Vendedores: " + cantVendedores);
-        //System.out.println("Paises: " + paises.size());
-        /* Muestra de paises (no habilitar hasta la carga de algun pais)
-        for(int i = 0; i<paises.size(); i++){
-            System.out.println(paises.get(i));
+        EntradaSalida.mostrarString("Fecha de ingreso en el holding: " + fechaDeEntrada);
+        EntradaSalida.mostrarString("Pais cede de la empresa: ");
+        sedeCentral.mostrar();
+        EntradaSalida.mostrarString("Paises donde la empresa desarrolla actividades: ");
+        for(int i=0;i<paises.size();i++){
+            Pais pais;
+            pais = paises.get(i);
+            pais.mostrar();
         }
-        */
-        //System.out.println("Areas: " + areas.size());
-        /* Muestra de areas (no habilitar hasta la carga de algun area)
-        for(int i = 0; i<areas.size(); i++){
-            System.out.println(areas.get(i));
+        EntradaSalida.mostrarString("Areas que cubre la empresa: ");
+        for(int i=0;i<areas.size();i++){
+            Area area;
+            area = areas.get(i);
+            area.mostrar();
         }
-        */
+        EntradaSalida.mostrarString("La facturacion de la empresa es: " + facturacion);
         
     }
 }
