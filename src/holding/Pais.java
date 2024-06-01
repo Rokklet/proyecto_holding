@@ -15,8 +15,8 @@ public class Pais {
         this.cantidadHabitantes = cantidadHabitantes;
     }
     
-    public void mostrarPais(){
-        EntradaSalida.mostrarString("" + nombre + "\t" + capital + "\t" + pbi + "\t" + cantidadHabitantes + "");
+    public void mostrar(){
+        EntradaSalida.mostrarString("" + nombre + "\t" + capital + "\t" + pbi + "\t" + cantidadHabitantes);
     }
 
     public String getNombre() {
