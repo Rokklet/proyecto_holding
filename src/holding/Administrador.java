@@ -103,7 +103,7 @@ public class Administrador extends Usuario implements Serializable {
                                 Pais pais;
                                 for(i = 0; i < listPaises.size(); i++){
                                     pais = listPaises.get(i);
-                                    pais.mostrarPais();
+                                    pais.mostrar();
                                 }
                                 boolean flag;
                                 do{
@@ -132,13 +132,15 @@ public class Administrador extends Usuario implements Serializable {
                                 Pais pais;
                                 for(i = 0; i < listPaises.size(); i++){
                                     pais = listPaises.get(i);
-                                    pais.mostrarPais();
+                                    if(empresa.coincidePais(pais)){
+                                        pais.mostrar();
+                                    }
                                 }
                                 boolean flag;
                                 do{
                                     flag = true;
-                                    String nomPais = EntradaSalida.leerString("Ingrese el nombre del pais o si no esta ingrese [0]:\n");
-                                    if(nomPais.equals("0")){
+                                    String nomPais = EntradaSalida.leerString("Ingrese el nombre del pais donde desarrolla actividades o si no esta ingrese [1]:\n");
+                                    if(nomPais.equals("1")){
                                         EntradaSalida.mostrarString("Hay que crear al pais:\n");
                                         nomPais = EntradaSalida.leerString("Ingrese el nombre del pais:\n");
                                         String capPais = EntradaSalida.leerString("Ingrese la capital del:\n");
@@ -155,11 +157,55 @@ public class Administrador extends Usuario implements Serializable {
                                     }
                                 }while(!flag);
                                 empresa.getPaises().add(pais);
-                                if(EntradaSalida.leerInt("Para dejar de cargar paises ingrese [0]") == 0){
+                                if(EntradaSalida.leerString("Para dejar de cargar paises ingrese [S] sino dijite otro caracter.").equals("S")){
                                     salida = false;
                                 }
                             }while(salida);
                             
+                            salida = true;
+                            do{
+                                Area area;
+                                ArrayList<Area> listAreas = sistema.getAreas();
+                                if(!listAreas.isEmpty()){
+                                    for(i = 0; i < listAreas.size(); i++){
+                                        area = listAreas.get(i);
+                                        if(empresa.coincideArea(area)){
+                                            area.mostrar();
+                                        }
+                                    }
+                                    boolean flag;
+                                    do{
+                                        flag = true;
+                                        String nomArea = EntradaSalida.leerString("Ingrese el nombre del area o si no esta ingrese [1]:\n");
+                                        if(nomArea.equals("1")){
+                                            EntradaSalida.mostrarString("Hay que crear al area:\n");
+                                            nomArea = EntradaSalida.leerString("Ingrese el nombre del area:\n");
+                                            area = new Area(nomArea);
+                                            sistema.getAreas().add(area);
+                                        }else{
+                                            area = sistema.buscarAreas(nomArea);
+                                            if(area == null){
+                                            flag = false;
+                                                EntradaSalida.mostrarString("Ese nombre no esta en la lista.\n");
+                                            }
+                                        }
+                                    }while(!flag);
+                                    empresa.getAreas().add(area);
+                                }else{
+                                    EntradaSalida.mostrarString("No hay areas en el sistema.");
+                                    EntradaSalida.mostrarString("Hay que crear al area:\n");
+                                    String nomArea = EntradaSalida.leerString("Ingrese el nombre del area:\n");
+                                    area = new Area(nomArea);
+                                    sistema.getAreas().add(area);
+                                    empresa.getAreas().add(area);
+                                }
+                                if(!EntradaSalida.leerString("Para dejar de cargar areas ingrese [S] sino dijite otro caracter.").equals("S")){
+                                    } else {
+                                        salida = false;
+                                    }
+                            }while(salida);
+                            
+                            empresa.setFacturacion(EntradaSalida.leerInt("Ingrese la factiracion de la empresa"));
                             
                             sistema.getEmpresas().add(empresa);
                             try {
