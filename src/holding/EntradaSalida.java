@@ -25,7 +25,11 @@ public class EntradaSalida {
         boolean i = leerBool.hasNext();
         return i;
     }
-
+    
+    public static void mostrarInt(int i){
+        System.out.println(i);
+    }
+    
     public static void mostrarString(String s) {
         System.out.println(s);
     }

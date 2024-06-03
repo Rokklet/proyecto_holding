@@ -14,12 +14,14 @@ public class Sistema implements Serializable {
     private ArrayList<Empresa> empresas;
     private ArrayList<Usuario> usuarios;
     private ArrayList<Pais> paises;
+    private ArrayList<Area> areas;
     
     
     public Sistema(){
         this.empresas = new ArrayList<Empresa>();
         this.usuarios = new ArrayList<Usuario>();
         this.paises = new ArrayList<Pais>();
+        this.areas = new ArrayList<Area>();
     }
     
     public Sistema deSerializar(String a) throws IOException, ClassNotFoundException {
@@ -134,5 +136,31 @@ public class Sistema implements Serializable {
         }
     }
 
-    
+    public ArrayList<Area> getAreas() {
+        return areas;
+    }
+
+    public void setAreas(ArrayList<Area> areas) {
+        this.areas = areas;
+    }
+
+    public Area buscarAreas(String datos) {
+        int i = 0;
+        boolean encontrado = false;
+        Area a = null;
+
+        while (i < areas.size() && !encontrado) {
+            a = areas.get(i);
+            if (datos.equals(a.getNombre())) {
+                encontrado = true;
+            } else {
+                i++;
+            }
+        }
+        if (!encontrado) {
+            return null;
+        } else {
+            return a;
+        }
+    }
 }
