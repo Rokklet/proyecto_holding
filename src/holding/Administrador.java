@@ -28,7 +28,7 @@ public class Administrador extends Usuario implements Serializable {
                     + "4_Para salir del menu.\n"
                     + "5_Para salir del programa.\n");
             switch (i){
-                case 1:
+                case 1: // DAR DE ALTA VENDEDOR
                     ArrayList<Empresa> listaEmpresas = sistema.getEmpresas();
                     if(listaEmpresas.isEmpty()){
                         EntradaSalida.mostrarString("Primero deben haber empresas asociadas al holding");
@@ -44,6 +44,17 @@ public class Administrador extends Usuario implements Serializable {
                                 if(conVen.equals("")){
                                     throw new NullPointerException("ERROR: La password no puede ser nula.");
                                 }else{
+                                    boolean lid = EntradaSalida.leerBoolean("¿El vendedor tendra a su cargo a otros vendedores?");
+                                    if(lid){
+                                        EntradaSalida.mostrarString("¿Para qué empresa trabajará el vendedor?");
+                                        for(int k = 0; k < listaEmpresas.size(); k++ ){
+                                            EntradaSalida.mostrarString(listaEmpresas.get(k).getNombre());
+                                        }
+                                        String nomEmpresa = EntradaSalida.leerString("Ingrese el nombre de la empresa");
+                                        
+                                    }else{
+                                        
+                                    }
                                     sistema.getUsuarios().add(new Vendedor(usVen, conVen));
                                 }
 
