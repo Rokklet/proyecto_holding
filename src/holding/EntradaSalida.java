@@ -33,6 +33,10 @@ public class EntradaSalida {
     public static void mostrarString(String s) {
         System.out.println(s);
     }
+    
+    public static void mostrarError(String s) {
+        System.err.println(s);
+    }
 
     public static int leerInt(String texto) {
         System.out.println(texto);
