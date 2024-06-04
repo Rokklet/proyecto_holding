@@ -11,7 +11,7 @@ public class Control {
 
         boolean seguir;
         try {
-            sistema = sistema.deSerializar("holding.txt");
+            sistema = sistema.deSerializar("holding.bin");
             seguir = EntradaSalida.leerBoolean("Holding de empresas\nDesea ingresar?\n"
                     + "1-Si\n"
                     + "0-No\n");
@@ -27,7 +27,7 @@ public class Control {
             }
             sistema.getUsuarios().add(new Administrador(usuario, contraseña));
             try {
-                sistema.serializar("holding.txt");
+                sistema.serializar("holding.bin");
                 EntradaSalida.mostrarString("El arranque ha sido exitoso. Ahora se debe reiniciar el sistema...");
             } catch (IOException ex) {
                 ex.printStackTrace();
