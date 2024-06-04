@@ -21,7 +21,7 @@ public class Administrador extends Usuario implements Serializable {
         System.out.println("Hola Administrador " + getId());
         
         do{
-            i=EntradaSalida.leerInt("Elija alguna de las siguientes opciones:\n"
+            i = EntradaSalida.leerInt("Elija alguna de las siguientes opciones:\n"
                     + "1_Para ingresar un nuevo vendedor.\n"
                     + "2_Para ingresar un nuevo ascesor.\n"
                     + "3_Para ingresar una nueva empresa.\n"
@@ -83,7 +83,7 @@ public class Administrador extends Usuario implements Serializable {
                             }
                         }
                     }
-                    
+                    break;
                 case 3: //DAR DE ALTA UNA EMPRESA
                     String nombre = EntradaSalida.leerString("ALTA EMPRESAS \n Nombre de la Empresa:");
                     if(nombre.equals("")){
@@ -220,18 +220,27 @@ public class Administrador extends Usuario implements Serializable {
                             
                             sistema.getEmpresas().add(empresa);
                             try {
-                                sistema.serializar("holding.txt");
-                            } catch (IOException ex) {
-                                Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
+                                sistema.serializar("holding.bin");
+                                EntradaSalida.mostrarString("Se dado de alta una nueva Empresa:");
+                                empresa.mostrar();
+                            } catch (Exception e) {
+                                System.err.println("NO SE PUDO CARGAR LA EMPRESA.");
                             }
-                            EntradaSalida.mostrarString("Se dado de alta una nueva Empresa:");
-                            empresa.mostrar();
+                            
                         }
                         
                     }
+                    break;
+                case 4:
+                    EntradaSalida.mostrarString("Hasta Luego " + getId());
+                    seguir = true;
+                    break;
+                case 5:
+                    EntradaSalida.mostrarString("Hasta Luego " + getId());
+                    seguir = false;
+                    break;
             }
-        }while(i!=4 || i!=5);
-        
+        }while(i != 4 && i != 5);
         
         return seguir;
     }
