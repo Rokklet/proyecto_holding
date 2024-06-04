@@ -219,13 +219,15 @@ public class Administrador extends Usuario implements Serializable {
                             empresa.setFacturacion(EntradaSalida.leerInt("Ingrese la factiracion de la empresa"));
                             
                             sistema.getEmpresas().add(empresa);
-                            try {
+                            EntradaSalida.mostrarString("Se dado de alta una nueva Empresa:");
+                            empresa.mostrar();
+                            /*try {
                                 sistema.serializar("holding.bin");
                                 EntradaSalida.mostrarString("Se dado de alta una nueva Empresa:");
                                 empresa.mostrar();
                             } catch (Exception e) {
                                 System.err.println("NO SE PUDO CARGAR LA EMPRESA.");
-                            }
+                            }*/
                             
                         }
                         
@@ -239,6 +241,16 @@ public class Administrador extends Usuario implements Serializable {
                     EntradaSalida.mostrarString("Hasta Luego " + getId());
                     seguir = false;
                     break;
+                default :
+                    EntradaSalida.mostrarString("Opcion inexistente.");
+            }
+            
+            if (i >= 1 && i <= 3) {
+                try {
+                    sistema.serializar("holding.bin");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }while(i != 4 && i != 5);
         
