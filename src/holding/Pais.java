@@ -1,7 +1,9 @@
 
 package holding;
 
-public class Pais {
+import java.io.Serializable;
+
+public class Pais implements Serializable {
     
     private String nombre;
     private String capital;

@@ -249,7 +249,7 @@ public class Administrador extends Usuario implements Serializable {
                 try {
                     sistema.serializar("holding.bin");
                 } catch (IOException e) {
-                    EntradaSalida.mostrarError("No se pudo serializar.");
+                    e.printStackTrace();
                     
                 }
             }

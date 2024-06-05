@@ -1,11 +1,12 @@
 
 package holding;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 
-public class Empresa {
+public class Empresa implements Serializable {
     
     private int codigo;
     private String nombre;

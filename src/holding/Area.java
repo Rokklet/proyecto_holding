@@ -1,8 +1,10 @@
 
 package holding;
 
+import java.io.Serializable;
 
-public class Area {
+
+public class Area implements Serializable {
     
     private String nombre;
     
