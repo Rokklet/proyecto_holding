@@ -30,6 +30,10 @@ public class Administrador extends Usuario implements Serializable {
             switch (i){
                 case 1: // DAR DE ALTA VENDEDOR
                     ArrayList<Empresa> listaEmpresas = sistema.getEmpresas();
+                    ArrayList<String> nomEmpresas = new ArrayList<String>();
+                        for(i = 0; i<listaEmpresas.size();i++){
+                            nomEmpresas.add(listaEmpresas.get(i).getNombre());
+                        }
                     if(listaEmpresas.isEmpty()){
                         EntradaSalida.mostrarString("Primero deben haber empresas asociadas al holding");
                     }else{
@@ -44,13 +48,20 @@ public class Administrador extends Usuario implements Serializable {
                                 if(conVen.equals("")){
                                     throw new NullPointerException("ERROR: La password no puede ser nula.");
                                 }else{
-                                    boolean lid = EntradaSalida.leerBoolean("¿El vendedor tendra a su cargo a otros vendedores?");
-                                    if(lid){
+                                    
+                                    if(EntradaSalida.leerBoolean("¿El vendedor tendra a su cargo a otros vendedores?")){
                                         EntradaSalida.mostrarString("¿Para qué empresa trabajará el vendedor?");
                                         for(int k = 0; k < listaEmpresas.size(); k++ ){
                                             EntradaSalida.mostrarString(listaEmpresas.get(k).getNombre());
                                         }
                                         String nomEmpresa = EntradaSalida.leerString("Ingrese el nombre de la empresa");
+                                        do{
+                                            if(!nomEmpresas.contains(nomEmpresa)){
+                                               EntradaSalida.mostrarString("No hay una empresa con ese nombre. Intente de nuevo");
+                                               nomEmpresa = EntradaSalida.leerString("Ingrese el nombre de la empresa"); 
+                                            }
+                                        }while(!nomEmpresas.contains(nomEmpresa));
+                                        
                                         
                                     }else{
                                         
