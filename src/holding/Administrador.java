@@ -57,7 +57,7 @@ public class Administrador extends Usuario implements Serializable {
                                         nomVen = EntradaSalida.leerString("Ingrese el nombre del vendedor: ");
                                     }
                                     
-                                    int codVen = EntradaSalida.leerInt("Ingrese el cod del vendedor");
+                                    int codVen = EntradaSalida.leerInt("Ingrese el cod del vendedor: ");
                                     for(Usuario u: listaUsuarios){
                                             if(u instanceof Vendedor){
                                                 Vendedor ven = (Vendedor)u;
@@ -66,7 +66,7 @@ public class Administrador extends Usuario implements Serializable {
                                         }
                                     while(codVendedores.contains(codVen)){
                                         EntradaSalida.mostrarError("ERROR: Ese codigo ya esta en uso");
-                                        codVen = EntradaSalida.leerInt("Ingrese un nuevo cod de vendedor");
+                                        codVen = EntradaSalida.leerInt("Ingrese un nuevo cod de vendedor: ");
                                     }
 
                                     if(EntradaSalida.leerBoolean("¿El vendedor fue captado por otro vendedor?")){
@@ -74,14 +74,14 @@ public class Administrador extends Usuario implements Serializable {
                                         for(Usuario u: listaUsuarios){
                                             if(u instanceof Vendedor){
                                                 Vendedor ven = (Vendedor)u;
-                                                EntradaSalida.mostrarString("Codigo:" + ven.getCod() + "Nombre: " +ven.getNombre());
+                                                EntradaSalida.mostrarString("Codigo:" + ven.getCod() + "|  Nombre: " +ven.getNombre());
                                             }
                                         }
 
-                                        int codLider = EntradaSalida.leerInt("Ingrese el codigo del vendedor por el que fue captado");
+                                        int codLider = EntradaSalida.leerInt("Ingrese el codigo del vendedor por el que fue captado: ");
                                         while(!codVendedores.contains(codLider)){
                                             EntradaSalida.mostrarString("El codigo ingresado no pertenece a ningun Vendedor. Intente de nuevo");
-                                            codLider = EntradaSalida.leerInt("Ingrese el codigo del vendedor:");
+                                            codLider = EntradaSalida.leerInt("Ingrese el codigo del vendedor: ");
                                         }
                                         Vendedor Lider = null;
                                         for(Usuario u: listaUsuarios){
@@ -118,16 +118,16 @@ public class Administrador extends Usuario implements Serializable {
                                         for(int k = 0; k < listaEmpresas.size(); k++ ){
                                             EntradaSalida.mostrarString(listaEmpresas.get(k).getNombre());
                                         }
-                                        String nomEmpresa = EntradaSalida.leerString("Ingrese el nombre de la empresa");
+                                        String nomEmpresa = EntradaSalida.leerString("Ingrese el nombre de la empresa: ");
                                         do{
                                             if(!nomEmpresas.contains(nomEmpresa)){
                                                EntradaSalida.mostrarString("No hay una empresa con ese nombre. Intente de nuevo");
-                                               nomEmpresa = EntradaSalida.leerString("Ingrese el nombre de la empresa"); 
+                                               nomEmpresa = EntradaSalida.leerString("Ingrese el nombre de la empresa: "); 
                                             }
                                         }while(!nomEmpresas.contains(nomEmpresa)); 
-                                        Empresa empresa=null;
+                                        Empresa empresa = null;
                                         for(int k=0; k< listaEmpresas.size() ; k++){
-                                            if(nomEmpresa == listaEmpresas.get(k).getNombre()){
+                                            if(nomEmpresa.equals(listaEmpresas.get(k).getNombre())){
                                                 empresa = listaEmpresas.get(k);
                                             }
                                         }
