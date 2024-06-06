@@ -27,10 +27,11 @@ public class Vendedor extends Usuario implements Serializable {
     public Vendedor(int cd, String us, String pas, Vendedor lid, String nom){
         setCod(cd);
         setId(us);
+        nombre = nom;
         setContraseña(pas);
         setFechaEntrada();
-        this.empresas = lid.getEmpresas();
-        this.lider = lid;
+        empresas = lid.getEmpresas();
+        lider = lid;
     }
     
     @Override
@@ -62,12 +63,14 @@ public class Vendedor extends Usuario implements Serializable {
         if(lider!=null){
             EntradaSalida.mostrarString("Su team leader es el vendedor: " + lider.getNombre());
         }
+        /*
         if(!vendedores.isEmpty()){
             EntradaSalida.mostrarString("Usted tiene a su cargo a: ");
             for(int j=0; j<vendedores.size(); j++){
                 EntradaSalida.mostrarString(vendedores.get(j).getNombre());
             }
         }
+        */
         EntradaSalida.mostrarString("Trabaja para la empresa: " + empresas.getNombre());
         EntradaSalida.mostrarString("Empezo el: " + fechaEntrada);
     }
@@ -96,5 +99,8 @@ public class Vendedor extends Usuario implements Serializable {
         return nombre;
     }
     
+    public void aniadirVendedor(Vendedor ven){
+        vendedores.add(ven);
+    }
     
 }
