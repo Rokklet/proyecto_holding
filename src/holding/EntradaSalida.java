@@ -22,8 +22,16 @@ public class EntradaSalida {
 
     public static boolean leerBoolean(String texto) {
         System.out.println(texto);
-        boolean i = leerBool.hasNext();
-        return i;
+       boolean i; // = leerBool.hasNext();
+       String s=leerString("");
+       if("1".equals(s)){
+           i = true;
+           return i;
+       }else{
+           i = false;
+           return i;
+       }
+       //return i;
     }
     
     public static void mostrarInt(int i){
