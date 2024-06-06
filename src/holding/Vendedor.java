@@ -14,16 +14,17 @@ public class Vendedor extends Usuario implements Serializable {
     private Vendedor lider;
     private ArrayList<Vendedor> vendedores;
     
-    public Vendedor(int cd, String u, String p, Empresa em) {
+    public Vendedor(int cd, String u, String p, Empresa em, String nom) {
         setCod(cd);
         setId(u);
+        nombre = nom;
         setContraseña(p);
         setFechaEntrada();
         empresas = em;
     }
     
     //Contructor vendedor en base a su lider
-    public Vendedor(int cd, String us, String pas, Vendedor lid){
+    public Vendedor(int cd, String us, String pas, Vendedor lid, String nom){
         setCod(cd);
         setId(us);
         setContraseña(pas);
