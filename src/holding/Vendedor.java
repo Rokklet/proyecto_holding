@@ -14,10 +14,12 @@ public class Vendedor extends Usuario implements Serializable {
     private Vendedor lider;
     private ArrayList<Vendedor> vendedores;
     
-    public Vendedor(String u, String p) {
+    public Vendedor(int cd, String u, String p, Empresa em) {
+        setCod(cd);
         setId(u);
         setContraseña(p);
         setFechaEntrada();
+        empresas = em;
     }
     
     //Contructor vendedor en base a su lider
@@ -27,6 +29,7 @@ public class Vendedor extends Usuario implements Serializable {
         setContraseña(pas);
         setFechaEntrada();
         this.empresas = lid.getEmpresas();
+        this.lider = lid;
     }
     
     @Override
