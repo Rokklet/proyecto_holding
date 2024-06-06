@@ -93,7 +93,7 @@ public class Administrador extends Usuario implements Serializable {
                                             }
                                         }
                                         
-                                        sistema.getUsuarios().add(new Vendedor(codVen, usVen, conVen, Lider));
+                                        sistema.getUsuarios().add(new Vendedor(codVen, usVen, conVen, Lider, nomVen));
                                         
                                         //Agregar el nuevo vendedor a la lista del lider
                                         /*
@@ -131,7 +131,7 @@ public class Administrador extends Usuario implements Serializable {
                                                 empresa = listaEmpresas.get(k);
                                             }
                                         }
-                                        sistema.getUsuarios().add(new Vendedor(codVen, usVen, conVen, empresa));
+                                        sistema.getUsuarios().add(new Vendedor(codVen, usVen, conVen, empresa, nomVen));
                                     }
                                 }
                             }  
