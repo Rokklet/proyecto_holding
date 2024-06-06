@@ -10,7 +10,7 @@ public class Vendedor extends Usuario implements Serializable {
     private String nombre;
     private LocalDate fechaEntrada;
     private int cod;
-    private Empresa empresas;
+    private Empresa empresa;
     private Vendedor lider;
     private ArrayList<Vendedor> vendedores;
     
@@ -20,7 +20,7 @@ public class Vendedor extends Usuario implements Serializable {
         nombre = nom;
         setContraseña(p);
         setFechaEntrada();
-        empresas = em;
+        empresa = em;
     }
     
     //Contructor vendedor en base a su lider
@@ -30,7 +30,7 @@ public class Vendedor extends Usuario implements Serializable {
         nombre = nom;
         setContraseña(pas);
         setFechaEntrada();
-        empresas = lid.getEmpresas();
+        empresa = lid.getEmpresa();
         lider = lid;
     }
     
@@ -58,6 +58,7 @@ public class Vendedor extends Usuario implements Serializable {
     
     @Override
     public void mostrar(){
+        EntradaSalida.mostrarString("___________________________________________________________________");
         EntradaSalida.mostrarString("Su codigo es: " + getCod());
         EntradaSalida.mostrarString("Nombre: " + getNombre());
         if(lider!=null){
@@ -71,8 +72,9 @@ public class Vendedor extends Usuario implements Serializable {
             }
         }
         */
-        EntradaSalida.mostrarString("Trabaja para la empresa: " + empresas.getNombre());
+        EntradaSalida.mostrarString("Trabaja para la empresa: " + empresa.getNombre());
         EntradaSalida.mostrarString("Empezo el: " + fechaEntrada);
+        EntradaSalida.mostrarString("___________________________________________________________________");
     }
 
     public LocalDate getFechaEntrada() {
@@ -91,8 +93,8 @@ public class Vendedor extends Usuario implements Serializable {
         this.cod = cod;
     }
     
-    public Empresa getEmpresas(){
-        return empresas;
+    public Empresa getEmpresa(){
+        return empresa;
     }
     
     public String getNombre(){
