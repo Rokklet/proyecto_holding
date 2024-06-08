@@ -56,63 +56,46 @@ public class Administrador extends Usuario implements Serializable {
                                         EntradaSalida.mostrarError("El nombre no puede estar vacio");
                                         nomVen = EntradaSalida.leerString("Ingrese el nombre del vendedor: ");
                                     }
-                                    
-                                    int codVen = EntradaSalida.leerInt("Ingrese el cod del vendedor: ");
                                     for(Usuario u: listaUsuarios){
                                             if(u instanceof Vendedor){
                                                 Vendedor ven = (Vendedor)u;
                                                 codVendedores.add(ven.getCod());
                                             }
                                         }
+                                    int codVen = EntradaSalida.leerInt("Ingrese el cod del vendedor: ");
                                     while(codVendedores.contains(codVen)){
                                         EntradaSalida.mostrarError("ERROR: Ese codigo ya esta en uso");
                                         codVen = EntradaSalida.leerInt("Ingrese un nuevo cod de vendedor: ");
                                     }
 
-                                    if(EntradaSalida.leerBoolean("¿El vendedor fue captado por otro vendedor?")){
-                                        EntradaSalida.mostrarString("Vendedores");
+                                    if(EntradaSalida.leerBoolean("¿El vendedor fue captado por otro vendedor?"
+                                            + "[1] SI"
+                                            + "[0] NO")){
+                                        EntradaSalida.mostrarString("Vendedores:");
                                         for(Usuario u: listaUsuarios){
                                             if(u instanceof Vendedor){
                                                 Vendedor ven = (Vendedor)u;
                                                 EntradaSalida.mostrarString("Codigo:" + ven.getCod() + "|  Nombre: " +ven.getNombre());
                                             }
                                         }
-
                                         int codLider = EntradaSalida.leerInt("Ingrese el codigo del vendedor por el que fue captado: ");
                                         while(!codVendedores.contains(codLider)){
                                             EntradaSalida.mostrarString("El codigo ingresado no pertenece a ningun Vendedor. Intente de nuevo");
                                             codLider = EntradaSalida.leerInt("Ingrese el codigo del vendedor: ");
                                         }
-                                        Vendedor Lider = null;
+                                        Vendedor lider = null;
                                         for(Usuario u: listaUsuarios){
                                             if(u instanceof Vendedor){
                                                 Vendedor ven = (Vendedor)u;
                                                 if(codLider == ven.getCod()){
-                                                    Lider = ven;
+                                                    lider = ven;
                                                 }
                                             }
                                         }
-                                        
-                                        sistema.getUsuarios().add(new Vendedor(codVen, usVen, conVen, Lider, nomVen));
-                                        
-                                        //Agregar el nuevo vendedor a la lista del lider
-                                        /*
-                                        listaUsuarios = sistema.getUsuarios();
-                                       
-                                        for(Usuario u: listaUsuarios){
-                                            if(u instanceof Vendedor){
-                                                Vendedor ven = (Vendedor)u;
-                                                if(codVen == ven.getCod()){
-                                                   for (int j = 0 ; j < sistema.getUsuarios().size() ; j++){  
-                                                        if(sistema.getUsuarios().get(j) == Lider){
-                                                            
-                                                        }
-                                                   } 
-                                                    
-                                                }
-                                            }
-                                        }
-                                         */  
+                                        Vendedor vendedor = new Vendedor(codVen, usVen, conVen, lider, nomVen);
+                                        sistema.getUsuarios().add(vendedor);
+                                        lider.getVendedores().add(vendedor);
+                                        sistema.sobreescribirLider(lider);
                                     }else{
                                        EntradaSalida.mostrarString("¿Para qué empresa trabajará el vendedor?");
                                         for(int k = 0; k < listaEmpresas.size(); k++ ){

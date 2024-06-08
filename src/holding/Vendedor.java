@@ -21,6 +21,7 @@ public class Vendedor extends Usuario implements Serializable {
         setContraseña(p);
         setFechaEntrada();
         empresa = em;
+        this.vendedores = new ArrayList<Vendedor>();
     }
     
     //Contructor vendedor en base a su lider
@@ -32,6 +33,7 @@ public class Vendedor extends Usuario implements Serializable {
         setFechaEntrada();
         empresa = lid.getEmpresa();
         lider = lid;
+        this.vendedores = new ArrayList<Vendedor>();
     }
     
     @Override
@@ -64,14 +66,14 @@ public class Vendedor extends Usuario implements Serializable {
         if(lider!=null){
             EntradaSalida.mostrarString("Su team leader es el vendedor: " + lider.getNombre());
         }
-        /*
+        
         if(!vendedores.isEmpty()){
             EntradaSalida.mostrarString("Usted tiene a su cargo a: ");
             for(int j=0; j<vendedores.size(); j++){
                 EntradaSalida.mostrarString(vendedores.get(j).getNombre());
             }
         }
-        */
+        
         EntradaSalida.mostrarString("Trabaja para la empresa: " + empresa.getNombre());
         EntradaSalida.mostrarString("Empezo el: " + fechaEntrada);
         EntradaSalida.mostrarString("___________________________________________________________________");
@@ -100,9 +102,14 @@ public class Vendedor extends Usuario implements Serializable {
     public String getNombre(){
         return nombre;
     }
-    
-    public void aniadirVendedor(Vendedor ven){
-        vendedores.add(ven);
+
+    public ArrayList<Vendedor> getVendedores() {
+        return vendedores;
     }
+
+    public void setVendedores(ArrayList<Vendedor> vendedores) {
+        this.vendedores = vendedores;
+    }
+    
     
 }

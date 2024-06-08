@@ -163,4 +163,20 @@ public class Sistema implements Serializable {
             return a;
         }
     }
+    
+    public void sobreescribirLider(Vendedor lider){
+        int i = 0;
+        boolean encontrado = false;
+        Usuario u = null;
+
+        while (i < usuarios.size() && !encontrado) {
+            u = usuarios.get(i);
+            if (lider.getId().equals(u.getId())) {
+                encontrado = true;
+                usuarios.set(i, lider);
+            } else {
+                i++;
+            }
+        }
+    }
 }
