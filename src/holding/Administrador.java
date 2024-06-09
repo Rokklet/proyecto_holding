@@ -3,6 +3,7 @@ package holding;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,8 +32,6 @@ public class Administrador extends Usuario implements Serializable {
                 case 1: // DAR DE ALTA VENDEDOR
                     ArrayList<Empresa> listaEmpresas = sistema.getEmpresas();
                     ArrayList<String> nomEmpresas = new ArrayList<String>();
-                    ArrayList<Usuario> listaUsuarios = sistema.getUsuarios();
-                    ArrayList<Integer> codVendedores = new ArrayList<Integer>();
                     
                         for(i = 0; i<listaEmpresas.size();i++){
                             nomEmpresas.add(listaEmpresas.get(i).getNombre());
@@ -56,6 +55,8 @@ public class Administrador extends Usuario implements Serializable {
                                         EntradaSalida.mostrarError("El nombre no puede estar vacio");
                                         nomVen = EntradaSalida.leerString("Ingrese el nombre del vendedor: ");
                                     }
+                                    ArrayList<Usuario> listaUsuarios = sistema.getUsuarios();
+                                    ArrayList<Integer> codVendedores = new ArrayList<Integer>();
                                     for(Usuario u: listaUsuarios){
                                             if(u instanceof Vendedor){
                                                 Vendedor ven = (Vendedor)u;
@@ -134,11 +135,120 @@ public class Administrador extends Usuario implements Serializable {
                                 EntradaSalida.mostrarString("Nombre de usuario ya existente");
                             }else{
                                 String pasAses = EntradaSalida.leerString("Ingrese una contraseña: ");
-                                if(pasAses.equals("")){
-                                    EntradaSalida.mostrarString("ERROR: La password no puede ser nula.");
-                                }else{
-                                    sistema.getUsuarios().add(new Asesor(usAses, pasAses));
+                                do{
+                                    if(pasAses.equals("")){
+                                        EntradaSalida.mostrarString("ERROR: La password no puede ser nula.");
+                                        pasAses = EntradaSalida.leerString("Ingrese una contraseña: ");
+                                    }
+                                }while(pasAses.equals(""));
+                                Asesor asesor = new Asesor(usAses, pasAses);
+                                ArrayList<Integer> codAsesores = new ArrayList<Integer>();
+                                ArrayList<Usuario> listaUsuarios = sistema.getUsuarios();
+                                for(Usuario u: listaUsuarios){
+                                            if(u instanceof Vendedor){
+                                                Vendedor ven = (Vendedor)u;
+                                                codAsesores.add(ven.getCod());
+                                            }
+                                        }
+                                    int codVen = EntradaSalida.leerInt("Ingrese el cod del asesor: ");
+                                    while(codAsesores.contains(codVen)){
+                                        EntradaSalida.mostrarError("ERROR: Ese codigo ya esta en uso");
+                                        codVen = EntradaSalida.leerInt("Ingrese un nuevo cod de asesor: ");
+                                    }
+                                asesor.setDireccion(EntradaSalida.leerString("Cual es la direccion del asesor:"));
+                                if(asesor.getDireccion().equals("")){
+                                    EntradaSalida.mostrarString("La direccion no puede ser nula");
+                                    asesor.setDireccion(EntradaSalida.leerString("Cual es la direccion del asesor:"));
                                 }
+                                
+                                boolean salida = true;
+                                
+                                do{
+                                    ArrayList<Empresa> listaEmpresa = sistema.getEmpresas();
+                                    EntradaSalida.mostrarString("¿En qué empresas asesorara?");
+                                    for(int k = 0; k < listaEmpresa.size(); k++ ){
+                                        EntradaSalida.mostrarString(listaEmpresa.get(k).getNombre());
+                                    }
+                                    String nomEmpresa = EntradaSalida.leerString("Ingrese el nombre de la empresa: ");
+                                    do{
+                                        if(!nomEmpresa.contains(nomEmpresa)){
+                                            EntradaSalida.mostrarString("No hay una empresa con ese nombre. Intente de nuevo");
+                                            nomEmpresa = EntradaSalida.leerString("Ingrese el nombre de la empresa: ");
+                                        }
+                                    }while(!nomEmpresa.contains(nomEmpresa));
+                                    Empresa empresa = null;
+                                    for(int k=0; k< listaEmpresa.size() ; k++){
+                                        if(nomEmpresa.equals(listaEmpresa.get(k).getNombre())){
+                                            empresa = listaEmpresa.get(k);
+                                            if(asesor.coincideEmpresa(empresa)){
+                                                asesor.getEmpresas().add(empresa);
+                                                asesor.getFechaEntrada().add(LocalDate.now());
+                                                ArrayList<Area> areasEmpresa = empresa.getAreas();
+                                                ArrayList<Area> areasAsesor = asesor.getAreas();
+                                                for(i = 0; i < areasAsesor.size() ;i++){
+                                                    for(int x = 0; x < areasEmpresa.size() ; x++){
+                                                        if(areasAsesor.get(i) != areasEmpresa.get(x)){
+                                                            asesor.getAreas().add(areasEmpresa.get(x));
+                                                        }
+                                                    }
+                                                }
+                                            }else{
+                                                EntradaSalida.mostrarString("Esa empresa ya fue cargada");
+                                            }
+                                        }
+                                    }
+                                    if(!EntradaSalida.leerString("Para dejar de cargar empresas ingrese [S] sino dijite otro caracter.").equals("S")){
+                                        } else {
+                                            salida = false;
+                                        }
+                                }while(salida);
+                                
+                                salida = true;
+                                do{
+                                    Area area;
+                                    ArrayList<Area> listAreas = sistema.getAreas();
+                                    if(!listAreas.isEmpty()){
+                                        for(i = 0; i < listAreas.size(); i++){
+                                            area = listAreas.get(i);
+                                            if(asesor.coincideArea(area)){
+                                                area.mostrar();
+                                            }
+                                        }
+                                        boolean flag;
+                                        do{
+                                            flag = true;
+                                            String nomArea = EntradaSalida.leerString("Ingrese el nombre del area o si no esta ingrese [1]:\n");
+                                            if(nomArea.equals("1")){
+                                                EntradaSalida.mostrarString("Hay que crear al area:\n");
+                                                nomArea = EntradaSalida.leerString("Ingrese el nombre del area:\n");
+                                                area = new Area(nomArea);
+                                                sistema.getAreas().add(area);
+                                            }else{
+                                                area = sistema.buscarAreas(nomArea);
+                                                if(area == null){
+                                                    flag = false;
+                                                    EntradaSalida.mostrarString("Ese area no esta en la lista.\n");
+                                                }else if(asesor.coincideArea(area)){
+                                                    flag = false;
+                                                    EntradaSalida.mostrarString("Ese area ya fue cargado.\n");
+                                                }
+                                            }
+                                        }while(!flag);
+                                        asesor.getAreas().add(area);
+                                    }else{
+                                        EntradaSalida.mostrarString("No hay areas en el sistema.");
+                                        EntradaSalida.mostrarString("Hay que crear al area:\n");
+                                        String nomArea = EntradaSalida.leerString("Ingrese el nombre del area:\n");
+                                        area = new Area(nomArea);
+                                        sistema.getAreas().add(area);
+                                        asesor.getAreas().add(area);
+                                    }
+                                    if(!EntradaSalida.leerString("Para dejar de cargar areas ingrese [S] sino dijite otro caracter.").equals("S")){
+                                        } else {
+                                            salida = false;
+                                        }
+                                }while(salida);
+                                sistema.getUsuarios().add(asesor);
                             }
                         }
                     }
@@ -257,7 +367,10 @@ public class Administrador extends Usuario implements Serializable {
                                             if(area == null){
                                             flag = false;
                                                 EntradaSalida.mostrarString("Ese nombre no esta en la lista.\n");
-                                            }
+                                            }else if(empresa.coincideArea(area)){
+                                                    flag = false;
+                                                    EntradaSalida.mostrarString("Ese area ya fue cargado.\n");
+                                                }
                                         }
                                     }while(!flag);
                                     empresa.getAreas().add(area);
