@@ -80,10 +80,10 @@ public class Empresa implements Serializable {
         for(int i = 0; i < areas.size() ;i++){
             aAux = areas.get(i);
             if(area.getNombre().equals(aAux.getNombre())){
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
     
     public boolean coincidePais(Pais pais){
