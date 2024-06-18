@@ -93,16 +93,19 @@ public class Asesor extends Usuario implements Serializable {
     public boolean proceder(Sistema sistema){
         EntradaSalida.mostrarString("Hola asesor " + getId());
         int i=EntradaSalida.leerInt("Presione '1' para ver sus datos o cualquier otra tecla para salir :");
+        int j;
         switch(i){
             case 1:
                 EntradaSalida.mostrarString("Su codigo es: " + codigo);
                 EntradaSalida.mostrarString("Nombre: " + nombre);
                 EntradaSalida.mostrarString("Vive en : " + direccion);
                 EntradaSalida.mostrarString("Trabaja en las Empresas: ");
-            for (int j=0; j<empresas.size(); j++) {
-                EntradaSalida.mostrarString(empresas.get(i).getNombre());
+            for (j=0; j<empresas.size(); j++) {
+                EntradaSalida.mostrarString(empresas.get(j).getNombre());
             }
-            
+            for (j=0; j<empresas.size(); j++) {
+                EntradaSalida.mostrarString(areas.get(j).getNombre());
+            }
 
                 
         }

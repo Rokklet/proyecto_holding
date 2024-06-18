@@ -17,23 +17,23 @@ public class Administrador extends Usuario implements Serializable {
     
     @Override
     public boolean proceder(Sistema sistema){
-        int i = 0;
+        int p = 0;
         boolean seguir = true;
         System.out.println("Hola Administrador " + getId());
         
         do{
-            i = EntradaSalida.leerInt("Elija alguna de las siguientes opciones:\n"
+            p = EntradaSalida.leerInt("Elija alguna de las siguientes opciones:\n"
                     + "1_Para ingresar un nuevo vendedor.\n"
                     + "2_Para ingresar un nuevo ascesor.\n"
                     + "3_Para ingresar una nueva empresa.\n"
                     + "4_Para salir del menu.\n"
                     + "5_Para salir del programa.\n");
-            switch (i){
+            switch (p){
                 case 1: // DAR DE ALTA VENDEDOR
                     ArrayList<Empresa> listaEmpresas = sistema.getEmpresas();
                     ArrayList<String> nomEmpresas = new ArrayList<String>();
                     
-                        for(i = 0; i<listaEmpresas.size();i++){
+                        for(int i = 0; i<listaEmpresas.size();i++){
                             nomEmpresas.add(listaEmpresas.get(i).getNombre());
                         }
                     if(listaEmpresas.isEmpty()){
@@ -150,17 +150,22 @@ public class Administrador extends Usuario implements Serializable {
                                                 codAsesores.add(ven.getCod());
                                             }
                                         }
-                                    int codVen = EntradaSalida.leerInt("Ingrese el cod del asesor: ");
-                                    while(codAsesores.contains(codVen)){
+                                    int codAse = EntradaSalida.leerInt("Ingrese el cod del asesor: ");
+                                    while(codAsesores.contains(codAse)){
                                         EntradaSalida.mostrarError("ERROR: Ese codigo ya esta en uso");
-                                        codVen = EntradaSalida.leerInt("Ingrese un nuevo cod de asesor: ");
+                                        codAse = EntradaSalida.leerInt("Ingrese un nuevo cod de asesor: ");
                                     }
+                                asesor.setCodigo(codAse);
                                 asesor.setDireccion(EntradaSalida.leerString("Cual es la direccion del asesor:"));
                                 if(asesor.getDireccion().equals("")){
                                     EntradaSalida.mostrarString("La direccion no puede ser nula");
                                     asesor.setDireccion(EntradaSalida.leerString("Cual es la direccion del asesor:"));
                                 }
-                                
+                                asesor.setNombre(EntradaSalida.leerString("Cual es el nombre del asesor?:"));
+                                if(asesor.getNombre().equals("")){
+                                    EntradaSalida.mostrarString("El nombre no puede ser nulo");
+                                    asesor.setNombre(EntradaSalida.leerString("Cual es el nombre del asesor?:"));
+                                }
                                 boolean salida = true;
                                 
                                 do{
@@ -185,7 +190,7 @@ public class Administrador extends Usuario implements Serializable {
                                                 asesor.getFechaEntrada().add(LocalDate.now());
                                                 ArrayList<Area> areasEmpresa = empresa.getAreas();
                                                 ArrayList<Area> areasAsesor = asesor.getAreas();
-                                                for(i = 0; i < areasAsesor.size() ;i++){
+                                                for(int i = 0; i < areasAsesor.size() ;i++){
                                                     for(int x = 0; x < areasEmpresa.size() ; x++){
                                                         if(areasAsesor.get(i) != areasEmpresa.get(x)){
                                                             asesor.getAreas().add(areasEmpresa.get(x));
@@ -208,33 +213,38 @@ public class Administrador extends Usuario implements Serializable {
                                     Area area;
                                     ArrayList<Area> listAreas = sistema.getAreas();
                                     if(!listAreas.isEmpty()){
-                                        for(i = 0; i < listAreas.size(); i++){
+                                        for(int i = 0; i < listAreas.size(); i++){
                                             area = listAreas.get(i);
-                                            if(asesor.coincideArea(area)){
+                                            if(!asesor.coincideArea(area)){
                                                 area.mostrar();
                                             }
                                         }
                                         boolean flag;
                                         do{
                                             flag = true;
-                                            String nomArea = EntradaSalida.leerString("Ingrese el nombre del area o si no esta ingrese [1]:\n");
-                                            if(nomArea.equals("1")){
-                                                EntradaSalida.mostrarString("Hay que crear al area:\n");
-                                                nomArea = EntradaSalida.leerString("Ingrese el nombre del area:\n");
-                                                area = new Area(nomArea);
-                                                sistema.getAreas().add(area);
-                                            }else{
-                                                area = sistema.buscarAreas(nomArea);
-                                                if(area == null){
-                                                    flag = false;
-                                                    EntradaSalida.mostrarString("Ese area no esta en la lista.\n");
-                                                }else if(asesor.coincideArea(area)){
-                                                    flag = false;
-                                                    EntradaSalida.mostrarString("Ese area ya fue cargado.\n");
+                                            String nomArea = EntradaSalida.leerString("Ingrese el nombre del area o si no esta ingrese [1] o [S] para salir:\n");
+                                            if(nomArea.equals("S")){
+                                                salida = false;
+                                            }else { 
+                                                if(nomArea.equals("1")){
+                                                    EntradaSalida.mostrarString("Hay que crear al area:\n");
+                                                    nomArea = EntradaSalida.leerString("Ingrese el nombre del area:\n");
+                                                    area = new Area(nomArea);
+                                                    sistema.getAreas().add(area);
+                                                    asesor.getAreas().add(area);
+                                                }else{
+                                                    area = sistema.buscarAreas(nomArea);
+                                                    if(area == null){
+                                                        flag = false;
+                                                        EntradaSalida.mostrarString("Ese area no esta en la lista.\n");
+                                                    }else if(asesor.coincideArea(area)){
+                                                        flag = false;
+                                                        EntradaSalida.mostrarString("Ese area ya fue cargado.\n");
+                                                    }else asesor.getAreas().add(area);
                                                 }
                                             }
                                         }while(!flag);
-                                        asesor.getAreas().add(area);
+                                        
                                     }else{
                                         EntradaSalida.mostrarString("No hay areas en el sistema.");
                                         EntradaSalida.mostrarString("Hay que crear al area:\n");
@@ -243,15 +253,19 @@ public class Administrador extends Usuario implements Serializable {
                                         sistema.getAreas().add(area);
                                         asesor.getAreas().add(area);
                                     }
-                                    if(!EntradaSalida.leerString("Para dejar de cargar areas ingrese [S] sino dijite otro caracter.").equals("S")){
-                                        } else {
-                                            salida = false;
-                                        }
+                                    if(salida){
+                                        if(!EntradaSalida.leerString("Para dejar de cargar areas ingrese [S] sino dijite otro caracter.").equals("S")){
+                                            } else salida = false;
+                                    }
                                 }while(salida);
+                                EntradaSalida.mostrarString("Termine");
                                 sistema.getUsuarios().add(asesor);
                             }
+                            EntradaSalida.mostrarString("Termine2");
                         }
+                        EntradaSalida.mostrarString("Termine3");
                     }
+                    EntradaSalida.mostrarString("Termine4");
                     break;
                 case 3: //DAR DE ALTA UNA EMPRESA
                     String nombre = EntradaSalida.leerString("ALTA EMPRESAS \n Nombre de la Empresa:");
@@ -260,7 +274,7 @@ public class Administrador extends Usuario implements Serializable {
                     }else{
                         ArrayList<Empresa> empresas = sistema.getEmpresas();
                         ArrayList<Integer> codigos = new ArrayList<Integer>();
-                        for(i = 0; i<empresas.size();i++){
+                        for(int i = 0; i<empresas.size();i++){
                             codigos.add(empresas.get(i).getCodigo());
                         }
                         int codigo = EntradaSalida.leerInt("Ingrese el codigo de la Empresa: ");
@@ -281,7 +295,7 @@ public class Administrador extends Usuario implements Serializable {
                                 sistema.getPaises().add(paisCede);
                             }else{
                                 Pais pais;
-                                for(i = 0; i < listPaises.size(); i++){
+                                for(int i = 0; i < listPaises.size(); i++){
                                     pais = listPaises.get(i);
                                     pais.mostrar();
                                 }
@@ -310,7 +324,7 @@ public class Administrador extends Usuario implements Serializable {
                             boolean salida = true;
                             do{
                                 Pais pais;
-                                for(i = 0; i < listPaises.size(); i++){
+                                for(int i = 0; i < listPaises.size(); i++){
                                     pais = listPaises.get(i);
                                     if(empresa.coincidePais(pais)){
                                         pais.mostrar();
@@ -347,7 +361,7 @@ public class Administrador extends Usuario implements Serializable {
                                 Area area;
                                 ArrayList<Area> listAreas = sistema.getAreas();
                                 if(!listAreas.isEmpty()){
-                                    for(i = 0; i < listAreas.size(); i++){
+                                    for(int i = 0; i < listAreas.size(); i++){
                                         area = listAreas.get(i);
                                         if(empresa.coincideArea(area)){
                                             area.mostrar();
@@ -392,15 +406,7 @@ public class Administrador extends Usuario implements Serializable {
                             
                             sistema.getEmpresas().add(empresa);
                             EntradaSalida.mostrarString("Se dado de alta una nueva Empresa:");
-                            empresa.mostrar();
-                            /*try {
-                                sistema.serializar("holding.bin");
-                                EntradaSalida.mostrarString("Se dado de alta una nueva Empresa:");
-                                empresa.mostrar();
-                            } catch (Exception e) {
-                                System.err.println("NO SE PUDO CARGAR LA EMPRESA.");
-                            }*/
-                            
+                            empresa.mostrar();  
                         }
                         
                     }
@@ -417,15 +423,16 @@ public class Administrador extends Usuario implements Serializable {
                     EntradaSalida.mostrarString("Opcion inexistente.");
             }
             
-            if (i >= 1 && i <= 3) {
+            if (p >= 1 && p <= 3) {
                 try {
+                    EntradaSalida.mostrarString("Serealizando...");
                     sistema.serializar("holding.bin");
                 } catch (IOException e) {
                     e.printStackTrace();
                     
                 }
             }
-        }while(i != 4 && i != 5);
+        }while(p != 4 && p != 5);
         
         return seguir;
     }
