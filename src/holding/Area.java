@@ -13,7 +13,7 @@ public class Area implements Serializable {
     }
     
     public void mostrar(){
-        EntradaSalida.mostrarString("" + nombre);
+        EntradaSalida.mostrarString(nombre);
     }
 
     public String getNombre() {

@@ -92,30 +92,27 @@ public class Asesor extends Usuario implements Serializable {
     @Override
     public boolean proceder(Sistema sistema){
         EntradaSalida.mostrarString("Hola asesor " + getId());
-        int i=EntradaSalida.leerInt("Presione '1' para ver sus datos o cualquier otra tecla para salir :");
-        int j;
-        switch(i){
-            case 1:
-                EntradaSalida.mostrarString("Su codigo es: " + codigo);
-                EntradaSalida.mostrarString("Nombre: " + nombre);
-                EntradaSalida.mostrarString("Vive en : " + direccion);
-                EntradaSalida.mostrarString("Trabaja en las Empresas: ");
-            for (j=0; j<empresas.size(); j++) {
-                EntradaSalida.mostrarString(empresas.get(j).getNombre());
-            }
-            for (j=0; j<empresas.size(); j++) {
-                EntradaSalida.mostrarString(areas.get(j).getNombre());
-            }
-
-                
-        }
+        mostrar();
+        EntradaSalida.mostrarString("Adios " + getId());
         return true;
     }
 
     @Override
     public void mostrar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
-    
+        EntradaSalida.mostrarString("Su codigo es: " + codigo);
+        EntradaSalida.mostrarString("Nombre: " + nombre);
+        EntradaSalida.mostrarString("Su direccion en : " + direccion);
+        EntradaSalida.mostrarString("Asesora en las empresas: ");
+        for (int i=0; i<empresas.size(); i++) {
+            Empresa empresa;
+            empresa =  empresas.get(i);
+            EntradaSalida.mostrarString(empresa.getNombre());
+        }
+        EntradaSalida.mostrarString("Asesora en las areas:");
+        for (int i=0; i<areas.size(); i++) {
+            Area area;
+            area = areas.get(i);
+            EntradaSalida.mostrarString(area.getNombre());
+        }
+        }
 }

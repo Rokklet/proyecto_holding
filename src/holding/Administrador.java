@@ -182,7 +182,7 @@ public class Administrador extends Usuario implements Serializable {
                                         }
                                     }while(!nomEmpresa.contains(nomEmpresa));
                                     Empresa empresa = null;
-                                    for(int k=0; k< listaEmpresa.size() ; k++){
+                                    for(int k = 0 ; k < listaEmpresa.size() ; k++){
                                         if(nomEmpresa.equals(listaEmpresa.get(k).getNombre())){
                                             empresa = listaEmpresa.get(k);
                                             if(asesor.coincideEmpresa(empresa)){
@@ -190,11 +190,23 @@ public class Administrador extends Usuario implements Serializable {
                                                 asesor.getFechaEntrada().add(LocalDate.now());
                                                 ArrayList<Area> areasEmpresa = empresa.getAreas();
                                                 ArrayList<Area> areasAsesor = asesor.getAreas();
-                                                for(int i = 0; i < areasAsesor.size() ;i++){
-                                                    for(int x = 0; x < areasEmpresa.size() ; x++){
-                                                        if(areasAsesor.get(i) != areasEmpresa.get(x)){
-                                                            asesor.getAreas().add(areasEmpresa.get(x));
+                                                if(!areasAsesor.isEmpty()){
+                                                    for(int i = 0; i < areasAsesor.size() ;i++){
+                                                        Area areaAsesor;
+                                                        areaAsesor = areasAsesor.get(i);
+                                                        for(int x = 0; x < areasEmpresa.size() ; x++){
+                                                            Area areaEmpresa;
+                                                            areaEmpresa = areasEmpresa.get(x);
+                                                            if(!areaAsesor.getNombre().equals(areaEmpresa.getNombre())){
+                                                                asesor.getAreas().add(areaEmpresa);
+                                                            }
                                                         }
+                                                    }
+                                                }else {
+                                                    for(int x = 0; x < areasEmpresa.size() ; x++){
+                                                            Area areaEmpresa;
+                                                            areaEmpresa = areasEmpresa.get(x);
+                                                            asesor.getAreas().add(areaEmpresa);
                                                     }
                                                 }
                                             }else{
@@ -258,14 +270,10 @@ public class Administrador extends Usuario implements Serializable {
                                             } else salida = false;
                                     }
                                 }while(salida);
-                                EntradaSalida.mostrarString("Termine");
                                 sistema.getUsuarios().add(asesor);
                             }
-                            EntradaSalida.mostrarString("Termine2");
                         }
-                        EntradaSalida.mostrarString("Termine3");
                     }
-                    EntradaSalida.mostrarString("Termine4");
                     break;
                 case 3: //DAR DE ALTA UNA EMPRESA
                     String nombre = EntradaSalida.leerString("ALTA EMPRESAS \n Nombre de la Empresa:");
