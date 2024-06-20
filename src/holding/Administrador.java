@@ -29,7 +29,10 @@ public class Administrador extends Usuario implements Serializable {
                     + "4_Para salir del menu.\n"
                     + "5_Para salir del programa.\n");
             switch (p){
-                case 1: // DAR DE ALTA VENDEDOR
+                
+                // DAR DE ALTA VENDEDOR
+                
+                case 1: 
                     ArrayList<Empresa> listaEmpresas = sistema.getEmpresas();
                     ArrayList<String> nomEmpresas = new ArrayList<String>();
                     
@@ -134,7 +137,9 @@ public class Administrador extends Usuario implements Serializable {
                 case 2: //DAR DE ALTA ASESOR
                     ArrayList<Empresa> listadoEmpresas = sistema.getEmpresas();
                     if(listadoEmpresas.isEmpty()){
+                        EntradaSalida.mostrarString("___________________________________________________________________");
                         EntradaSalida.mostrarString("Primero deben haber empresas asociadas al holding");
+                        EntradaSalida.mostrarString("___________________________________________________________________");
                     }else{
                         String usAses= EntradaSalida.leerString("ALTA ASESOR \n Usuario del asesor:");
                         if(usAses.equals("")){
@@ -150,31 +155,24 @@ public class Administrador extends Usuario implements Serializable {
                                         pasAses = EntradaSalida.leerString("Ingrese una contraseña: ");
                                     }
                                 }while(pasAses.equals(""));
+                                
+                                
                                 Asesor asesor = new Asesor(usAses, pasAses);
-                                ArrayList<Integer> codAsesores = new ArrayList<Integer>();
-                                ArrayList<Usuario> listaUsuarios = sistema.getUsuarios();
-                                for(Usuario u: listaUsuarios){
-                                            if(u instanceof Vendedor){
-                                                Vendedor ven = (Vendedor)u;
-                                                codAsesores.add(ven.getCod());
-                                            }
-                                        }
-                                    int codAse = EntradaSalida.leerInt("Ingrese el cod del asesor: ");
-                                    while(codAsesores.contains(codAse)){
-                                        EntradaSalida.mostrarError("ERROR: Ese codigo ya esta en uso");
-                                        codAse = EntradaSalida.leerInt("Ingrese un nuevo cod de asesor: ");
-                                    }
-                                asesor.setCodigo(codAse);
+                                
+                                asesor.setCodigo(sistema.generarCodigoAsesor());
+                                
+                                
                                 asesor.setDireccion(EntradaSalida.leerString("Cual es la direccion del asesor:"));
                                 if(asesor.getDireccion().equals("")){
                                     EntradaSalida.mostrarString("La direccion no puede ser nula");
                                     asesor.setDireccion(EntradaSalida.leerString("Cual es la direccion del asesor:"));
                                 }
-                                asesor.setNombre(EntradaSalida.leerString("Cual es el nombre del asesor?:"));
+                                asesor.setNombre(EntradaSalida.leerString("Ingrese el nombre del asesor:"));
                                 if(asesor.getNombre().equals("")){
                                     EntradaSalida.mostrarString("El nombre no puede ser nulo");
                                     asesor.setNombre(EntradaSalida.leerString("Cual es el nombre del asesor?:"));
                                 }
+                                
                                 boolean salida = true;
                                 
                                 do{
