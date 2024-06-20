@@ -99,20 +99,24 @@ public class Asesor extends Usuario implements Serializable {
 
     @Override
     public void mostrar() {
+        EntradaSalida.mostrarString("___________________________________________________________________");
         EntradaSalida.mostrarString("Su codigo es: " + codigo);
         EntradaSalida.mostrarString("Nombre: " + nombre);
         EntradaSalida.mostrarString("Su direccion en : " + direccion);
+        EntradaSalida.mostrarString("___________________________________________________________________");
         EntradaSalida.mostrarString("Asesora en las empresas: ");
         for (int i=0; i<empresas.size(); i++) {
             Empresa empresa;
             empresa =  empresas.get(i);
             EntradaSalida.mostrarString(empresa.getNombre());
         }
+        EntradaSalida.mostrarString("___________________________________________________________________");
         EntradaSalida.mostrarString("Asesora en las areas:");
         for (int i=0; i<areas.size(); i++) {
             Area area;
             area = areas.get(i);
             EntradaSalida.mostrarString(area.getNombre());
         }
+        EntradaSalida.mostrarString("___________________________________________________________________");
         }
 }
