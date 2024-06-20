@@ -82,6 +82,34 @@ public class Sistema implements Serializable {
         return empresas;
     }
 
+    public int generarCodigoAsesor () {
+        int cod = 0;
+        ArrayList<Integer> cods = new ArrayList<Integer>(); 
+        
+        for (Usuario u: usuarios){
+
+            if(u instanceof Asesor){
+                cods.add(((Asesor) u).getCodigo() );
+            }
+
+        }
+        
+        if(!cods.isEmpty()){
+            
+            for(int i = 0; i<cods.size(); i++){
+                if(cod == 0){
+                    cod = cods.get(i);
+                }else if(cod < cods.get(i)){
+                    cod = cods.get(i);
+                }
+            }
+            
+            return ++cod;
+        }else{
+            return ++cod;
+        }
+    }
+    
     public void setEmpresas(ArrayList<Empresa> empresas) {
         this.empresas = empresas;
     }
