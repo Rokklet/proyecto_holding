@@ -10,14 +10,16 @@ public class Vendedor extends Usuario implements Serializable {
     private String nombre;
     private LocalDate fechaEntrada;
     private int cod;
+    private String direccion;
     private Empresa empresa;
     private Vendedor lider;
     private ArrayList<Vendedor> vendedores;
     
-    public Vendedor(int cd, String u, String p, Empresa em, String nom) {
+    public Vendedor(int cd, String u, String p, Empresa em, String nom, String dir) {
         setCod(cd);
         setId(u);
         nombre = nom;
+        direccion = dir;
         setContraseña(p);
         setFechaEntrada();
         empresa = em;
@@ -25,10 +27,11 @@ public class Vendedor extends Usuario implements Serializable {
     }
     
     //Contructor vendedor en base a su lider
-    public Vendedor(int cd, String us, String pas, Vendedor lid, String nom){
+    public Vendedor(int cd, String us, String pas, Vendedor lid, String nom, String dir){
         setCod(cd);
         setId(us);
         nombre = nom;
+        direccion = dir;
         setContraseña(pas);
         setFechaEntrada();
         empresa = lid.getEmpresa();
@@ -63,6 +66,7 @@ public class Vendedor extends Usuario implements Serializable {
         EntradaSalida.mostrarString("___________________________________________________________________");
         EntradaSalida.mostrarString("Su codigo es: " + getCod());
         EntradaSalida.mostrarString("Nombre: " + getNombre());
+        EntradaSalida.mostrarString("Direccion: " + direccion);
         if(lider!=null){
             EntradaSalida.mostrarString("Su team leader es el vendedor: " + lider.getNombre());
         }
