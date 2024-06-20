@@ -68,7 +68,15 @@ public class Administrador extends Usuario implements Serializable {
                                         EntradaSalida.mostrarError("ERROR: Ese codigo ya esta en uso");
                                         codVen = EntradaSalida.leerInt("Ingrese un nuevo cod de vendedor: ");
                                     }
-
+                                    
+                                    //carga dirección
+                                    
+                                    String dir = EntradaSalida.leerString("Ingrese la direccion del vendedor: ");
+                                    while(dir.isEmpty()){
+                                        EntradaSalida.mostrarError("LA DIRECCION NO PUEDE ESTAR VACIA.");
+                                        dir = EntradaSalida.leerString("Intente de nuevo: ");
+                                    }
+                                    
                                     if(EntradaSalida.leerBoolean("¿El vendedor fue captado por otro vendedor?"
                                             + "[1] SI"
                                             + "[0] NO")){
@@ -93,7 +101,7 @@ public class Administrador extends Usuario implements Serializable {
                                                 }
                                             }
                                         }
-                                        Vendedor vendedor = new Vendedor(codVen, usVen, conVen, lider, nomVen);
+                                        Vendedor vendedor = new Vendedor(codVen, usVen, conVen, lider, nomVen, dir);
                                         sistema.getUsuarios().add(vendedor);
                                         lider.getVendedores().add(vendedor);
                                         sistema.sobreescribirLider(lider);
@@ -115,13 +123,14 @@ public class Administrador extends Usuario implements Serializable {
                                                 empresa = listaEmpresas.get(k);
                                             }
                                         }
-                                        sistema.getUsuarios().add(new Vendedor(codVen, usVen, conVen, empresa, nomVen));
+                                        sistema.getUsuarios().add(new Vendedor(codVen, usVen, conVen, empresa, nomVen, dir));
                                     }
                                 }
                             }  
                         }
                     }
                     break;
+                    
                 case 2: //DAR DE ALTA ASESOR
                     ArrayList<Empresa> listadoEmpresas = sistema.getEmpresas();
                     if(listadoEmpresas.isEmpty()){
