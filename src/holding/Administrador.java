@@ -250,7 +250,8 @@ public class Administrador extends Usuario implements Serializable {
                                                 if(nomArea.equals("1")){
                                                     EntradaSalida.mostrarString("Hay que crear al area:\n");
                                                     nomArea = EntradaSalida.leerString("Ingrese el nombre del area:\n");
-                                                    area = new Area(nomArea);
+                                                    String desArea = EntradaSalida.leerString("Ingrese una descripcion del area: ");
+                                                    area = new Area(nomArea,desArea);
                                                     sistema.getAreas().add(area);
                                                     asesor.getAreas().add(area);
                                                 }else{
@@ -270,7 +271,8 @@ public class Administrador extends Usuario implements Serializable {
                                         EntradaSalida.mostrarString("No hay areas en el sistema.");
                                         EntradaSalida.mostrarString("Hay que crear al area:\n");
                                         String nomArea = EntradaSalida.leerString("Ingrese el nombre del area:\n");
-                                        area = new Area(nomArea);
+                                        String desArea = EntradaSalida.leerString("Ingrese una descripcion del area: ");
+                                        area = new Area(nomArea,desArea);
                                         sistema.getAreas().add(area);
                                         asesor.getAreas().add(area);
                                     }
@@ -284,7 +286,10 @@ public class Administrador extends Usuario implements Serializable {
                         }
                     }
                     break;
-                case 3: //DAR DE ALTA UNA EMPRESA
+                    
+                 //DAR DE ALTA UNA EMPRESA
+                    
+                case 3:
                     String nombre = EntradaSalida.leerString("ALTA EMPRESAS \n Nombre de la Empresa:");
                     if(nombre.equals("")){
                         System.out.println("Nombre no valido");
@@ -391,7 +396,8 @@ public class Administrador extends Usuario implements Serializable {
                                         if(nomArea.equals("1")){
                                             EntradaSalida.mostrarString("Hay que crear al area:\n");
                                             nomArea = EntradaSalida.leerString("Ingrese el nombre del area:\n");
-                                            area = new Area(nomArea);
+                                            String desArea = EntradaSalida.leerString("Ingrese una descripcion del area: ");
+                                            area = new Area(nomArea, desArea);
                                             sistema.getAreas().add(area);
                                         }else{
                                             area = sistema.buscarAreas(nomArea);
@@ -409,7 +415,8 @@ public class Administrador extends Usuario implements Serializable {
                                     EntradaSalida.mostrarString("No hay areas en el sistema.");
                                     EntradaSalida.mostrarString("Hay que crear al area:\n");
                                     String nomArea = EntradaSalida.leerString("Ingrese el nombre del area:\n");
-                                    area = new Area(nomArea);
+                                    String desArea = EntradaSalida.leerString("Ingrese una descripcion del area: ");
+                                    area = new Area(nomArea, desArea);
                                     sistema.getAreas().add(area);
                                     empresa.getAreas().add(area);
                                 }
