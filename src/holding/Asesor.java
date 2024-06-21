@@ -14,10 +14,10 @@ public class Asesor extends Usuario implements Serializable {
     private ArrayList<Empresa> empresas;
     private ArrayList<Area> areas;
     
-    public Asesor(String us, String pas /*, int cod*/){
-        //setCodigo(cod);
+    public Asesor(String us, String pas , int cod){
         setId(us);
         setContraseña(pas);
+        codigo = cod;
         this.areas = new ArrayList<Area>();
         this.empresas = new ArrayList<Empresa>();
         this.fechaEntrada = new ArrayList<LocalDate>();
@@ -67,33 +67,29 @@ public class Asesor extends Usuario implements Serializable {
         this.areas = areas;
     }
     
-    public boolean coincideArea(Area area){
-        Area aAux;
-        for(int i = 0; i < areas.size() ;i++){
-            aAux = areas.get(i);
-            if(area.getNombre().equals(aAux.getNombre())){
-                return true;
-            }
+    
+    
+    public boolean coincideEmpresa(Empresa empresa){
+        
+        if(empresas.contains(empresa)){
+            return true;
         }
         return false;
     }
     
-    public boolean coincideEmpresa(Empresa empresa){
-        Empresa eAux;
-        for(int i = 0; i < empresas.size() ;i++){
-            eAux = empresas.get(i);
-            if(empresa.getNombre().equals(eAux.getNombre())){
-                return false;
-            }
+    public boolean coincideArea(Area a){
+        if (areas.contains(a)){
+            return true;
+        }else{
+            return false;
         }
-        return true;
     }
     
     @Override
     public boolean proceder(Sistema sistema){
-        EntradaSalida.mostrarString("Hola asesor " + getId());
+        EntradaSalida.mostrarString("\n\nHola asesor " + getId() + "\n");
         mostrar();
-        EntradaSalida.mostrarString("Adios " + getId());
+        EntradaSalida.mostrarString("\n\nAdios " + getId() + "\n");
         return true;
     }
 
@@ -113,9 +109,7 @@ public class Asesor extends Usuario implements Serializable {
         EntradaSalida.mostrarString("___________________________________________________________________");
         EntradaSalida.mostrarString("Asesora en las areas:");
         for (int i=0; i<areas.size(); i++) {
-            Area area;
-            area = areas.get(i);
-            EntradaSalida.mostrarString(area.getNombre());
+            EntradaSalida.mostrarString(areas.get(i).getNombre() + "\t|Descripcion: " + areas.get(i).getDescripcion() + "\t|Fecha de Inicio en el Area: " + fechaEntrada.get(i));
         }
         EntradaSalida.mostrarString("___________________________________________________________________");
         }
