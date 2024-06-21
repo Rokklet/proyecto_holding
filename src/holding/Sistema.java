@@ -175,17 +175,14 @@ public class Sistema implements Serializable {
     }
     
     public boolean coincideCodEmp (int cod){
-        Empresa empresa;
-        for(int i = 0; i < empresas.size() ;i++){
-            empresa = empresas.get(i);
-            if(empresa.getCodigo()== cod){
-                System.out.println("Se ha encontrado una empresa.");
+        
+        for(Empresa e : empresas){
+            if(cod == e.getCodigo()){
                 return true;
             }
         }
-        
-        System.out.println("No se ha encontrado una empresa con ese codigo.");
         return false;
+        
     }
 
     public ArrayList<Pais> getPaises() {
@@ -259,4 +256,12 @@ public class Sistema implements Serializable {
             }
         }
     }
+    
+    public void mostrarEmpresas(){
+        for(Empresa e : empresas){
+            EntradaSalida.mostrarString("Codigo: " + e.getCodigo() + "\t|Nombre: " + e.getNombre());
+        }
+    }
+    
+    
 }
