@@ -233,40 +233,39 @@ public class Administrador extends Usuario implements Serializable {
                 case 3:
                     String nombre = EntradaSalida.leerString("ALTA EMPRESAS \n Nombre de la Empresa:");
                     if(nombre.equals("")){
-                        System.out.println("Nombre no valido");
+                        EntradaSalida.mostrarString("Nombre no valido");
                     }else{
 
                         ArrayList<Pais> listPaises = sistema.getPaises();
                         Pais paisCede;
                         if(listPaises.isEmpty()){
+                            
+                            EntradaSalida.mostrarString("___________________________________________________________________");
                             EntradaSalida.mostrarString("Aun no hay paises disponibles.\n"
                                     + "Cargue el pais cede:\n");
-                            String nomPaisSC = EntradaSalida.leerString("Ingrese el nombre del pais cede:\n");
-                            String capPaisSC = EntradaSalida.leerString("Ingrese la capital del pais:\n");
-                            int pbiPaisSC = EntradaSalida.leerInt("Ingrese el pbi del pais:\n");
-                            int cantHabitantesSC = EntradaSalida.leerInt("Ingrese la cantidad de habitantes del pais:\n");
-                            paisCede = new Pais(nomPaisSC, capPaisSC, pbiPaisSC, cantHabitantesSC);
-                            sistema.getPaises().add(paisCede);
+                            EntradaSalida.mostrarString("___________________________________________________________________");
+                            
+                            paisCede = sistema.crearPais();
+                            
                         }else{
-                            Pais pais;
-                            for(int i = 0; i < listPaises.size(); i++){
-                                pais = listPaises.get(i);
-                                pais.mostrar();
+                            
+                            for(Pais pa : listPaises ){
+                                pa.mostrar();
                             }
+                            
                             boolean flag;
                             do{
                                 flag = true;
-                                String nomPaisSC = EntradaSalida.leerString("Ingrese el nombre del pais cede o si no esta ingrese [0]:\n");
-                                if(nomPaisSC.equals("0")){
+                                String nom = EntradaSalida.leerString("Ingrese el nombre del pais cede o si no esta ingrese [0]:\n");
+                                if(nom.equals("0")){
+                                    EntradaSalida.mostrarString("___________________________________________________________________");
                                     EntradaSalida.mostrarString("Hay que crear al pais cede:\n");
-                                    nomPaisSC = EntradaSalida.leerString("Ingrese el nombre del pais cede:\n");
-                                    String capPaisSC = EntradaSalida.leerString("Ingrese la capital del pais:\n");
-                                    int pbiPaisSC = EntradaSalida.leerInt("Ingrese el pbi del pais:\n");
-                                    int cantHabitantesSC = EntradaSalida.leerInt("Ingrese la cantidad de habitantes del pais:\n");
-                                    paisCede = new Pais(nomPaisSC, capPaisSC, pbiPaisSC, cantHabitantesSC);
-                                    sistema.getPaises().add(paisCede);
+                                    EntradaSalida.mostrarString("___________________________________________________________________");
+                                    
+                                    paisCede = sistema.crearPais();
+                                    
                                 }else{
-                                    paisCede = sistema.buscarPais(nomPaisSC);
+                                    paisCede = sistema.buscarPais(nom);
                                     if(paisCede == null){
                                         flag = false;
                                         EntradaSalida.mostrarString("Ese nombre no esta en la lista.\n");
@@ -278,36 +277,38 @@ public class Administrador extends Usuario implements Serializable {
                         boolean salida = true;
                         do{
                             Pais pais;
-                            for(int i = 0; i < listPaises.size(); i++){
-                                pais = listPaises.get(i);
-                                if(empresa.coincidePais(pais)){
-                                    pais.mostrar();
-                                }
+                            
+                            for(Pais pa : listPaises ){
+                                pa.mostrar();
                             }
+                            
                             boolean flag;
                             do{
                                 flag = true;
-                                String nomPais = EntradaSalida.leerString("Ingrese el nombre del pais donde desarrolla actividades o si no esta ingrese [1]:\n");
-                                if(nomPais.equals("1")){
+                                String nom = EntradaSalida.leerString("Ingrese el nombre del pais donde desarrolla actividades o si no esta ingrese [1]:\n");
+                                if(nom.equals("1")){
+                                    EntradaSalida.mostrarString("___________________________________________________________________");
                                     EntradaSalida.mostrarString("Hay que crear al pais:\n");
-                                    nomPais = EntradaSalida.leerString("Ingrese el nombre del pais:\n");
-                                    String capPais = EntradaSalida.leerString("Ingrese la capital del:\n");
-                                    int pbiPais = EntradaSalida.leerInt("Ingrese el pbi del:\n");
-                                    int cantHabitantes = EntradaSalida.leerInt("Ingrese la cantidad de habitantes del pais:\n");
-                                    pais = new Pais(nomPais, capPais, pbiPais, cantHabitantes);
-                                    sistema.getPaises().add(pais);
+                                    EntradaSalida.mostrarString("___________________________________________________________________");
+                                    
+                                    pais = sistema.crearPais();
+                                    
                                 }else{
-                                    pais = sistema.buscarPais(nomPais);
+                                    pais = sistema.buscarPais(nom);
                                     if(pais == null){
                                     flag = false;
                                         EntradaSalida.mostrarString("Ese nombre no esta en la lista.\n");
                                     }
                                 }
+                                
                             }while(!flag);
+                            
                             empresa.getPaises().add(pais);
-                            if(EntradaSalida.leerString("Para dejar de cargar paises ingrese [S] sino dijite otro caracter.").equals("S")){
+                            
+                            if(EntradaSalida.leerString("Para dejar de cargar paises ingrese [s] sino dijite otro caracter.").equals("s")){
                                 salida = false;
                             }
+                            
                         }while(salida);
 
                         salida = true;
@@ -315,24 +316,27 @@ public class Administrador extends Usuario implements Serializable {
                             Area area;
                             ArrayList<Area> listAreas = sistema.getAreas();
                             if(!listAreas.isEmpty()){
-                                for(int i = 0; i < listAreas.size(); i++){
-                                    area = listAreas.get(i);
-                                    if(empresa.coincideArea(area)){
-                                        area.mostrar();
+                                
+                                for (Area a : listAreas){
+                                    if(!empresa.coincideArea(a)){
+                                        a.mostrar();
                                     }
+                                    
                                 }
+                                
                                 boolean flag;
                                 do{
                                     flag = true;
-                                    String nomArea = EntradaSalida.leerString("Ingrese el nombre del area o si no esta ingrese [1]:\n");
-                                    if(nomArea.equals("1")){
+                                    String nom = EntradaSalida.leerString("Ingrese el nombre del area o si no esta ingrese [1]:\n");
+                                    if(nom.equals("1")){
+                                        
+                                        EntradaSalida.mostrarString("___________________________________________________________________");
                                         EntradaSalida.mostrarString("Hay que crear al area:\n");
-                                        nomArea = EntradaSalida.leerString("Ingrese el nombre del area:\n");
-                                        String desArea = EntradaSalida.leerString("Ingrese una descripcion del area: ");
-                                        area = new Area(nomArea, desArea);
-                                        sistema.getAreas().add(area);
+                                        EntradaSalida.mostrarString("___________________________________________________________________");
+                                        area = sistema.crearArea();
+                                        
                                     }else{
-                                        area = sistema.buscarAreas(nomArea);
+                                        area = sistema.buscarAreas(nom);
                                         if(area == null){
                                         flag = false;
                                             EntradaSalida.mostrarString("Ese nombre no esta en la lista.\n");
@@ -344,12 +348,11 @@ public class Administrador extends Usuario implements Serializable {
                                 }while(!flag);
                                 empresa.getAreas().add(area);
                             }else{
+                                EntradaSalida.mostrarString("___________________________________________________________________");
                                 EntradaSalida.mostrarString("No hay areas en el sistema.");
                                 EntradaSalida.mostrarString("Hay que crear al area:\n");
-                                String nomArea = EntradaSalida.leerString("Ingrese el nombre del area:\n");
-                                String desArea = EntradaSalida.leerString("Ingrese una descripcion del area: ");
-                                area = new Area(nomArea, desArea);
-                                sistema.getAreas().add(area);
+                                EntradaSalida.mostrarString("___________________________________________________________________");
+                                area = sistema.crearArea();
                                 empresa.getAreas().add(area);
                             }
                             if(!EntradaSalida.leerString("Para dejar de cargar areas ingrese [S] sino dijite otro caracter.").equals("S")){
@@ -358,7 +361,7 @@ public class Administrador extends Usuario implements Serializable {
                                 }
                         }while(salida);
 
-                        empresa.setFacturacion(EntradaSalida.leerInt("Ingrese la factiracion de la empresa"));
+                        empresa.setFacturacion(EntradaSalida.leerInt("Ingrese la facturacion de la empresa: "));
 
                         sistema.getEmpresas().add(empresa);
                         EntradaSalida.mostrarString("Se dado de alta una nueva Empresa:");
