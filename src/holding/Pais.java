@@ -18,7 +18,7 @@ public class Pais implements Serializable {
     }
     
     public void mostrar(){
-        EntradaSalida.mostrarString("" + nombre + "\t" + capital + "\t" + pbi + "\t" + cantidadHabitantes);
+        EntradaSalida.mostrarString("Nombre: " + nombre + "\t| Capital: " + capital + "\t| PBI: " + pbi + "\t| Poblacion: " + cantidadHabitantes);
     }
 
     public String getNombre() {
