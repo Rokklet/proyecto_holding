@@ -264,4 +264,76 @@ public class Sistema implements Serializable {
     }
     
     
+        // Crea un pais y devuelve el mismo
+    public Pais crearPais(){
+        
+        String nom = EntradaSalida.leerString("Ingrese el nombre del pais: ");
+        while(nom.isEmpty() || coincideNombrePais(nom)){
+            if(nom.isEmpty()){
+                EntradaSalida.mostrarError("ERROR: El nombre del pais no puede ser nulo.");
+                nom = EntradaSalida.leerString("Ingrese el nombre del pais: ");
+            }
+            if(coincideNombrePais(nom)){
+                EntradaSalida.mostrarError("ERROR: Ese pais ya existe.");
+                nom = EntradaSalida.leerString("Ingrese el nombre del pais: ");
+            }
+        }
+        
+        String cap = EntradaSalida.leerString("Ingrese la capital del pais: ");
+        while(cap.isEmpty()){
+            EntradaSalida.mostrarError("ERROR: El pais debe tener una capital.");
+            cap = EntradaSalida.leerString("Ingrese la capital del pais: ");
+        }
+        
+        int pbi = EntradaSalida.leerInt("Ingrese el pbi del pais: ");
+        int hab = EntradaSalida.leerInt("Ingrese la cantidad de habitantes: ");
+        
+        Pais pais = new Pais(nom, cap, pbi, hab);
+        paises.add(pais);
+        return pais;
+        
+    }
+    
+    private boolean coincideNombrePais(String nom){
+        for(Pais p : paises){
+            if(nom.equals(p.getNombre())){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    //Crea un area y devuelve la misma
+    public Area crearArea(){
+        String nom = EntradaSalida.leerString("Ingrese el nombre del area: ");
+        while(nom.isEmpty() || coincideNombreArea(nom)){
+            if(nom.isEmpty()){
+                EntradaSalida.mostrarError("ERROR: El nombre del area no puede ser nula.");
+                nom = EntradaSalida.leerString("Ingrese el nombre del area: ");
+            }
+            if(coincideNombreArea(nom)){
+                EntradaSalida.mostrarError("ERROR: Esa area ya existe.");
+                nom = EntradaSalida.leerString("Ingrese el nombre del area: ");
+            }
+        }
+        
+        String des = EntradaSalida.leerString("ingrese una descripcion del area: ");
+        while(des.isEmpty()){
+            EntradaSalida.mostrarError("ERROR: La descricion no puede estar vacia.");
+            des = EntradaSalida.leerString("ingrese una descripcion del area: ");
+        }
+        
+        Area area = new Area(nom,des);
+        areas.add(area);
+        return area;
+    }
+    
+    private boolean coincideNombreArea(String nom){
+        for(Area a : areas){
+            if(nom.equals(a.getNombre())){
+                return true;
+            }
+        }
+        return false;
+    }
 }
