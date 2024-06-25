@@ -1,4 +1,3 @@
-
 package holding;
 
 import java.io.FileInputStream;
@@ -10,20 +9,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Sistema implements Serializable {
-    
+
     private ArrayList<Empresa> empresas;
     private ArrayList<Usuario> usuarios;
     private ArrayList<Pais> paises;
     private ArrayList<Area> areas;
-    
-    
-    public Sistema(){
+
+    public Sistema() {
         this.empresas = new ArrayList<Empresa>();
         this.usuarios = new ArrayList<Usuario>();
         this.paises = new ArrayList<Pais>();
         this.areas = new ArrayList<Area>();
     }
-    
+
     public Sistema deSerializar(String a) throws IOException, ClassNotFoundException {
         FileInputStream f = new FileInputStream(a);
         ObjectInputStream o = new ObjectInputStream(f);
@@ -32,7 +30,7 @@ public class Sistema implements Serializable {
         f.close();
         return s;
     }
-    
+
     public void serializar(String a) throws IOException {
         FileOutputStream f = new FileOutputStream(a);
         ObjectOutputStream o = new ObjectOutputStream(f);
@@ -40,12 +38,12 @@ public class Sistema implements Serializable {
         o.close();
         f.close();
     }
-    
-    public boolean coincideUsuario(String usuario){
+
+    public boolean coincideUsuario(String usuario) {
         int i = 0;
         boolean coincide = false;
         Usuario u = null;
-        
+
         while (i < usuarios.size() || coincide) {
             u = usuarios.get(i);
             if (usuario.equals(u.getId())) {
@@ -54,10 +52,10 @@ public class Sistema implements Serializable {
                 i++;
             }
         }
-        
+
         return coincide;
     }
-    
+
     public Usuario buscarUsuario(String datos) {
         int i = 0;
         boolean encontrado = false;
@@ -77,91 +75,91 @@ public class Sistema implements Serializable {
             return u;
         }
     }
-    
+
     public ArrayList<Empresa> getEmpresas() {
         return empresas;
     }
 
-    public int generarCodigoAsesor () {
+    public int generarCodigoAsesor() {
         int cod = 0;
-        ArrayList<Integer> cods = new ArrayList<Integer>(); 
-        
-        for (Usuario u: usuarios){
+        ArrayList<Integer> cods = new ArrayList<Integer>();
 
-            if(u instanceof Asesor){
-                cods.add(((Asesor) u).getCodigo() );
+        for (Usuario u : usuarios) {
+
+            if (u instanceof Asesor) {
+                cods.add(((Asesor) u).getCodigo());
             }
 
         }
-        
-        if(!cods.isEmpty()){
-            
-            for(int i = 0; i<cods.size(); i++){
-                if(cod == 0){
+
+        if (!cods.isEmpty()) {
+
+            for (int i = 0; i < cods.size(); i++) {
+                if (cod == 0) {
                     cod = cods.get(i);
-                }else if(cod < cods.get(i)){
+                } else if (cod < cods.get(i)) {
                     cod = cods.get(i);
                 }
             }
-            
+
             return ++cod;
-        }else{
+        } else {
             return ++cod;
         }
     }
-    
-    public int generarCodigoVendedor () {
-        int cod = 0;
-        ArrayList<Integer> cods = new ArrayList<>(); 
-        
-        for (Usuario u: usuarios){
 
-            if(u instanceof Vendedor){
-                cods.add(((Vendedor) u).getCod() );
+    public int generarCodigoVendedor() {
+        int cod = 0;
+        ArrayList<Integer> cods = new ArrayList<>();
+
+        for (Usuario u : usuarios) {
+
+            if (u instanceof Vendedor) {
+                cods.add(((Vendedor) u).getCod());
             }
 
         }
-        
-        if(!cods.isEmpty()){
-            
-            for(int i = 0; i<cods.size(); i++){
-                if(cod == 0){
+
+        if (!cods.isEmpty()) {
+
+            for (int i = 0; i < cods.size(); i++) {
+                if (cod == 0) {
                     cod = cods.get(i);
-                }else if(cod < cods.get(i)){
+                } else if (cod < cods.get(i)) {
                     cod = cods.get(i);
                 }
             }
-            
+
             return ++cod;
-        }else{
+        } else {
             return ++cod;
         }
     }
-    
-    public int generarCodigoEmpresa () {
+
+    public int generarCodigoEmpresa() {
         int cod = 0;
-        ArrayList<Integer> cods = new ArrayList<Integer>(); 
-        
-        for (Empresa e: empresas){
+        ArrayList<Integer> cods = new ArrayList<Integer>();
+
+        for (Empresa e : empresas) {
             cods.add(e.getCodigo());
         }
-        
-        if(!cods.isEmpty()){
-            
-            for(int i = 0; i<cods.size(); i++){
-                if(cod == 0){
+
+        if (!cods.isEmpty()) {
+
+            for (int i = 0; i < cods.size(); i++) {
+                if (cod == 0) {
                     cod = cods.get(i);
-                }else if(cod < cods.get(i)){
+                } else if (cod < cods.get(i)) {
                     cod = cods.get(i);
                 }
             }
-            
+
             return ++cod;
-        }else{
+        } else {
             return ++cod;
         }
     }
-    
+
     public void setEmpresas(ArrayList<Empresa> empresas) {
         this.empresas = empresas;
     }
@@ -173,16 +171,16 @@ public class Sistema implements Serializable {
     public void setUsuario(ArrayList<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
-    
-    public boolean coincideCodEmp (int cod){
-        
-        for(Empresa e : empresas){
-            if(cod == e.getCodigo()){
+
+    public boolean coincideCodEmp(int cod) {
+
+        for (Empresa e : empresas) {
+            if (cod == e.getCodigo()) {
                 return true;
             }
         }
         return false;
-        
+
     }
 
     public ArrayList<Pais> getPaises() {
@@ -192,7 +190,7 @@ public class Sistema implements Serializable {
     public void setPaises(ArrayList<Pais> paises) {
         this.paises = paises;
     }
-    
+
     public Pais buscarPais(String datos) {
         int i = 0;
         boolean encontrado = false;
@@ -240,8 +238,8 @@ public class Sistema implements Serializable {
             return a;
         }
     }
-    
-    public void sobreescribirLider(Vendedor lider){
+
+    public void sobreescribirLider(Vendedor lider) {
         int i = 0;
         boolean encontrado = false;
         Usuario u = null;
@@ -256,84 +254,94 @@ public class Sistema implements Serializable {
             }
         }
     }
-    
-    public void mostrarEmpresas(){
-        for(Empresa e : empresas){
+
+    public void mostrarEmpresas() {
+        for (Empresa e : empresas) {
             EntradaSalida.mostrarString("Codigo: " + e.getCodigo() + "\t|Nombre: " + e.getNombre());
         }
     }
-    
-    
-        // Crea un pais y devuelve el mismo
-    public Pais crearPais(){
-        
+
+    // Crea un pais y devuelve el mismo
+    public Pais crearPais() {
+
         String nom = EntradaSalida.leerString("Ingrese el nombre del pais: ");
-        while(nom.isEmpty() || coincideNombrePais(nom)){
-            if(nom.isEmpty()){
+        while (nom.isEmpty() || coincideNombrePais(nom)) {
+            if (nom.isEmpty()) {
                 EntradaSalida.mostrarError("ERROR: El nombre del pais no puede ser nulo.");
                 nom = EntradaSalida.leerString("Ingrese el nombre del pais: ");
             }
-            if(coincideNombrePais(nom)){
+            if (coincideNombrePais(nom)) {
                 EntradaSalida.mostrarError("ERROR: Ese pais ya existe.");
                 nom = EntradaSalida.leerString("Ingrese el nombre del pais: ");
             }
         }
-        
+
         String cap = EntradaSalida.leerString("Ingrese la capital del pais: ");
-        while(cap.isEmpty()){
+        while (cap.isEmpty()) {
             EntradaSalida.mostrarError("ERROR: El pais debe tener una capital.");
             cap = EntradaSalida.leerString("Ingrese la capital del pais: ");
         }
-        
+
         int pbi = EntradaSalida.leerInt("Ingrese el pbi del pais: ");
         int hab = EntradaSalida.leerInt("Ingrese la cantidad de habitantes: ");
-        
+
         Pais pais = new Pais(nom, cap, pbi, hab);
         paises.add(pais);
         return pais;
-        
+
     }
-    
-    private boolean coincideNombrePais(String nom){
-        for(Pais p : paises){
-            if(nom.equals(p.getNombre())){
+
+    private boolean coincideNombrePais(String nom) {
+        for (Pais p : paises) {
+            if (nom.equals(p.getNombre())) {
                 return true;
             }
         }
         return false;
     }
-    
+
     //Crea un area y devuelve la misma
-    public Area crearArea(){
+    public Area crearArea() {
         String nom = EntradaSalida.leerString("Ingrese el nombre del area: ");
-        while(nom.isEmpty() || coincideNombreArea(nom)){
-            if(nom.isEmpty()){
+        while (nom.isEmpty() || coincideNombreArea(nom)) {
+            if (nom.isEmpty()) {
                 EntradaSalida.mostrarError("ERROR: El nombre del area no puede ser nula.");
                 nom = EntradaSalida.leerString("Ingrese el nombre del area: ");
             }
-            if(coincideNombreArea(nom)){
+            if (coincideNombreArea(nom)) {
                 EntradaSalida.mostrarError("ERROR: Esa area ya existe.");
                 nom = EntradaSalida.leerString("Ingrese el nombre del area: ");
             }
         }
-        
+
         String des = EntradaSalida.leerString("ingrese una descripcion del area: ");
-        while(des.isEmpty()){
+        while (des.isEmpty()) {
             EntradaSalida.mostrarError("ERROR: La descricion no puede estar vacia.");
             des = EntradaSalida.leerString("ingrese una descripcion del area: ");
         }
-        
-        Area area = new Area(nom,des);
+
+        Area area = new Area(nom, des);
         areas.add(area);
         return area;
     }
-    
-    private boolean coincideNombreArea(String nom){
-        for(Area a : areas){
-            if(nom.equals(a.getNombre())){
+
+    private boolean coincideNombreArea(String nom) {
+        for (Area a : areas) {
+            if (nom.equals(a.getNombre())) {
                 return true;
             }
         }
+        return false;
+    }
+
+    public boolean existenVendedores() {
+
+        for (Usuario u : usuarios) {
+            if (u instanceof Vendedor) {
+                return true;
+            }
+        }
+        
         return false;
     }
 }
