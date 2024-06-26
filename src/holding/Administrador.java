@@ -116,20 +116,19 @@ public class Administrador extends Usuario implements Serializable {
                                             sistema.sobreescribirEmpresa(empresa);
                                             sistema.sobreescribirLider(lider);
                                         }else{
-                                            EntradaSalida.mostrarString("¿Para qué empresa trabajará el vendedor?");
-                                            for(int k = 0; k < listaEmpresas.size(); k++ ){
-                                                EntradaSalida.mostrarString(listaEmpresas.get(k).getNombre());
+                                            EntradaSalida.mostrarString("¿En qué empresa trabaja?");
+                            
+                                            sistema.mostrarEmpresas();
+
+                                            int cod = EntradaSalida.leerInt("Ingrese el codigo de la empresa: ");
+                                            while(!sistema.coincideCodEmp(cod)){
+                                                EntradaSalida.mostrarError("ERROR: No se ha encontrado una empresa con Codigo: " + cod + ".");
+                                                cod = EntradaSalida.leerInt("Ingrese el codigo de la empresa: ");
                                             }
-                                            String nomEmpresa = EntradaSalida.leerString("Ingrese el nombre de la empresa: ");
-                                            do{
-                                                if(!nomEmpresas.contains(nomEmpresa)){
-                                                   EntradaSalida.mostrarString("No hay una empresa con ese nombre. Intente de nuevo");
-                                                   nomEmpresa = EntradaSalida.leerString("Ingrese el nombre de la empresa: "); 
-                                                }
-                                            }while(!nomEmpresas.contains(nomEmpresa)); 
+
                                             Empresa empresa = null;
                                             for(int k=0; k< listaEmpresas.size() ; k++){
-                                                if(nomEmpresa.equals(listaEmpresas.get(k).getNombre())){
+                                                if(cod==(listaEmpresas.get(k).getCodigo())){
                                                     empresa = listaEmpresas.get(k);
                                                 }
                                             }
@@ -138,26 +137,25 @@ public class Administrador extends Usuario implements Serializable {
                                             sistema.getUsuarios().add(new Vendedor(sistema.generarCodigoVendedor(), usVen, conVen, empresa, nomVen, dir));
                                         }
                                     }else{
-                                       EntradaSalida.mostrarString("¿Para qué empresa trabajará el vendedor?");
-                                        for(int k = 0; k < listaEmpresas.size(); k++ ){
-                                            EntradaSalida.mostrarString(listaEmpresas.get(k).getNombre());
-                                        }
-                                        String nomEmpresa = EntradaSalida.leerString("Ingrese el nombre de la empresa: ");
-                                        do{
-                                            if(!nomEmpresas.contains(nomEmpresa)){
-                                               EntradaSalida.mostrarString("No hay una empresa con ese nombre. Intente de nuevo");
-                                               nomEmpresa = EntradaSalida.leerString("Ingrese el nombre de la empresa: "); 
+                                        EntradaSalida.mostrarString("¿En qué empresa trabaja?");
+                            
+                                            sistema.mostrarEmpresas();
+
+                                            int cod = EntradaSalida.leerInt("Ingrese el codigo de la empresa: ");
+                                            while(!sistema.coincideCodEmp(cod)){
+                                                EntradaSalida.mostrarError("ERROR: No se ha encontrado una empresa con Codigo: " + cod + ".");
+                                                cod = EntradaSalida.leerInt("Ingrese el codigo de la empresa: ");
                                             }
-                                        }while(!nomEmpresas.contains(nomEmpresa)); 
-                                        Empresa empresa = null;
-                                        for(int k=0; k< listaEmpresas.size() ; k++){
-                                            if(nomEmpresa.equals(listaEmpresas.get(k).getNombre())){
-                                                empresa = listaEmpresas.get(k);
+
+                                            Empresa empresa = null;
+                                            for(int k=0; k< listaEmpresas.size() ; k++){
+                                                if(cod==(listaEmpresas.get(k).getCodigo())){
+                                                    empresa = listaEmpresas.get(k);
+                                                }
                                             }
-                                        }
-                                        empresa.setCantVendedores();
-                                        sistema.sobreescribirEmpresa(empresa);
-                                        sistema.getUsuarios().add(new Vendedor(sistema.generarCodigoVendedor(), usVen, conVen, empresa, nomVen, dir));
+                                            empresa.setCantVendedores();
+                                            sistema.sobreescribirEmpresa(empresa);
+                                            sistema.getUsuarios().add(new Vendedor(sistema.generarCodigoVendedor(), usVen, conVen, empresa, nomVen, dir));
                                     }
                                 }
                             }  
