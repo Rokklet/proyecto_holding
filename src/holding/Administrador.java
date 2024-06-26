@@ -133,6 +133,8 @@ public class Administrador extends Usuario implements Serializable {
                                                     empresa = listaEmpresas.get(k);
                                                 }
                                             }
+                                            empresa.setCantVendedores();
+                                            sistema.sobreescribirEmpresa(empresa);
                                             sistema.getUsuarios().add(new Vendedor(sistema.generarCodigoVendedor(), usVen, conVen, empresa, nomVen, dir));
                                         }
                                     }else{
@@ -153,6 +155,8 @@ public class Administrador extends Usuario implements Serializable {
                                                 empresa = listaEmpresas.get(k);
                                             }
                                         }
+                                        empresa.setCantVendedores();
+                                        sistema.sobreescribirEmpresa(empresa);
                                         sistema.getUsuarios().add(new Vendedor(sistema.generarCodigoVendedor(), usVen, conVen, empresa, nomVen, dir));
                                     }
                                 }
