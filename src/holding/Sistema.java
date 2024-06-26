@@ -254,6 +254,22 @@ public class Sistema implements Serializable {
             }
         }
     }
+    
+    public void sobreescribirEmpresa(Empresa empresa) {
+        int i = 0;
+        boolean encontrado = false;
+        Empresa e = null;
+
+        while (i < empresas.size() && !encontrado) {
+            e = empresas.get(i);
+            if (empresa.getNombre().equals(e.getNombre())) {
+                encontrado = true;
+                empresas.set(i, empresa);
+            } else {
+                i++;
+            }
+        }
+    }
 
     public void mostrarEmpresas() {
         for (Empresa e : empresas) {

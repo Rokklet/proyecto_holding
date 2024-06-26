@@ -104,7 +104,7 @@ public class Asesor extends Usuario implements Serializable {
         for (int i=0; i<empresas.size(); i++) {
             Empresa empresa;
             empresa =  empresas.get(i);
-            EntradaSalida.mostrarString(empresa.getNombre());
+            empresa.mostrar();
         }
         EntradaSalida.mostrarString("___________________________________________________________________");
         EntradaSalida.mostrarString("Asesora en las areas:");

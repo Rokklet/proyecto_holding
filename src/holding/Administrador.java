@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -90,7 +91,7 @@ public class Administrador extends Usuario implements Serializable {
                                             for(Usuario u: listaUsuarios){
                                                 if(u instanceof Vendedor){
                                                     Vendedor ven = (Vendedor)u;
-                                                    EntradaSalida.mostrarString("Codigo:" + ven.getCod() + "|  Nombre: " +ven.getNombre());
+                                                    EntradaSalida.mostrarString("Codigo:" + ven.getCod() + "|  Nombre: " + ven.getNombre());
                                                 }
                                             }
                                             int codLider = EntradaSalida.leerInt("Ingrese el codigo del vendedor por el que fue captado: ");
@@ -110,6 +111,9 @@ public class Administrador extends Usuario implements Serializable {
                                             Vendedor vendedor = new Vendedor(sistema.generarCodigoVendedor(), usVen, conVen, lider, nomVen, dir);
                                             sistema.getUsuarios().add(vendedor);
                                             lider.getVendedores().add(vendedor);
+                                            Empresa empresa = lider.getEmpresa();
+                                            empresa.setCantVendedores();
+                                            sistema.sobreescribirEmpresa(empresa);
                                             sistema.sobreescribirLider(lider);
                                         }else{
                                             EntradaSalida.mostrarString("¿Para qué empresa trabajará el vendedor?");

@@ -22,7 +22,7 @@ public class Empresa implements Serializable {
         this.nombre = nombre;
         this.sedeCentral = sedeCentral;
         this.fechaDeEntrada = LocalDate.now();
-
+        this.cantVendedores = 0;
         this.paises = new ArrayList<Pais>();
         this.areas = new ArrayList<Area>();
     }
@@ -55,8 +55,8 @@ public class Empresa implements Serializable {
         return cantVendedores;
     }
 
-    public void setCantVendedores(int cantVendedores) {
-        this.cantVendedores = cantVendedores;
+    public void setCantVendedores() {
+        this.cantVendedores++;
     }
 
     public ArrayList<Area> getAreas() {
@@ -101,6 +101,7 @@ public class Empresa implements Serializable {
         EntradaSalida.mostrarString("Empresa: " + nombre);
         EntradaSalida.mostrarString("Codigo: " + codigo);
         EntradaSalida.mostrarString("Fecha de ingreso en el holding: " + fechaDeEntrada);
+        EntradaSalida.mostrarString("La empresa tiene: " + cantVendedores);
         EntradaSalida.mostrarString("Pais cede de la empresa: ");
         sedeCentral.mostrar();
         EntradaSalida.mostrarString("Paises donde la empresa desarrolla actividades: ");
