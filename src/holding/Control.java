@@ -2,6 +2,8 @@
 package holding;
 
 import java.io.IOException;
+import javax.swing.*;
+//import java.awt.event.*;
         
 public class Control {
     
@@ -16,6 +18,22 @@ public class Control {
                     + "1-Si\n"
                     + "0-No\n");
         } catch (Exception e) {
+            Vista vista = new Vista();
+            vista.setBounds(0, 0, 500, 500);
+            vista.setResizable(false);
+            vista.setVisible(true);
+            vista.setLocationRelativeTo(null);
+            JLabel label1 = new JLabel("Arranque Incial del sistema");
+            label1.setBounds(160, 20, 300, 30);
+            vista.add(label1);
+            JLabel label2 = new JLabel("Usuario");
+            label2.setBounds(160, 30, 300, 30);
+            vista.add(label2);
+            JLabel label3 = new JLabel("Usuario");
+            label3.setBounds(160, 50, 300, 30);
+            vista.add(label3);
+            JTextField cajaTexto1 = new JTextField();
+            cajaTexto1.setBounds(160, 30, 300, 30);
             String usuario = EntradaSalida.leerString("Arranque inicial del sistema.\n"
                     + "Sr(a) Admisnitrador(a), ingrese su nombre de usuario:");
             if (usuario.equals("")) {
